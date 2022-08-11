@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Cassandra\Tinyint;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -258,7 +259,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsMarried(): ?bool
+    public function getIsMarried(): ?bool
     {
         return $this->is_married;
     }
@@ -294,7 +295,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsDelete(): ?int
+    public function getIsDelete(): ?int
     {
         return $this->is_delete;
     }

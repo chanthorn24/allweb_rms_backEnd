@@ -400,9 +400,12 @@ class ComposerStaticInit75b906d1a59e7073a889f479c0dee403
     );
 
     public static $classMap = array (
-        'App\\Controller\\UserController' => __DIR__ . '/../..' . '/src/Controller/UserController.php',
+        'App\\Controller\\Employee\\EmDepartmentController' => __DIR__ . '/../..' . '/src/Controller/Employee/EmDepartmentController.php',
+        'App\\Controller\\Employee\\UserController' => __DIR__ . '/../..' . '/src/Controller/Employee/UserController.php',
+        'App\\Entity\\EmDepartments' => __DIR__ . '/../..' . '/src/Entity/EmDepartments.php',
         'App\\Entity\\Users' => __DIR__ . '/../..' . '/src/Entity/Users.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\EmDepartmentsRepository' => __DIR__ . '/../..' . '/src/Repository/EmDepartmentsRepository.php',
         'App\\Repository\\UsersRepository' => __DIR__ . '/../..' . '/src/Repository/UsersRepository.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',

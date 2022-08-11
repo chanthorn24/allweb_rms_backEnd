@@ -31,11 +31,20 @@ class EmDepartmentController extends AbstractController
                 throw new \RuntimeException("No data has found");
             }
 
+
             foreach ($departments as $depart) {
+                $users = [];
                 if(!$depart->getIsDelete()) {
+                    foreach ($depart->getUsers() as  $user) {
+                        $users[] = [
+                          "firstName" => $user->getFirstName(),
+                          "lastName" => $user->getLastName()
+                        ];
+                    }
                     $res[] = [
                         "id" => $depart->getId(),
-                        "name" => $depart->getName()
+                        "name" => $depart->getName(),
+                        "users" => $users
                     ];
                 }
             }
@@ -121,6 +130,41 @@ class EmDepartmentController extends AbstractController
             //save database
             $this->em->flush();
             return $this->json(array("success" => true, "message" => "Deleted successfully"), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/department/{id}", name="show_department", methods="GET")
+     * @return JsonResponse
+     */
+    public function show($id): JsonResponse
+    {
+        try {
+            $department = $this->em->getRepository(EmDepartments::class)->find($id);
+            if(!$department) {
+                throw new \RuntimeException("No data has found");
+            }
+
+            $userCollections = $department->getUsers();
+            $users = [];
+
+            foreach($userCollections as $user){
+                $users[] = [
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                ];
+            }
+
+            $res[] = [
+                "id" => $department->getId(),
+                "name" => $department->getName(),
+                "users" => $users
+            ];
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }

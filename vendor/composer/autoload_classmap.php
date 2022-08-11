@@ -6,9 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Controller\\UserController' => $baseDir . '/src/Controller/UserController.php',
+    'App\\Controller\\Employee\\EmDepartmentController' => $baseDir . '/src/Controller/Employee/EmDepartmentController.php',
+    'App\\Controller\\Employee\\UserController' => $baseDir . '/src/Controller/Employee/UserController.php',
+    'App\\Entity\\EmDepartments' => $baseDir . '/src/Entity/EmDepartments.php',
     'App\\Entity\\Users' => $baseDir . '/src/Entity/Users.php',
     'App\\Kernel' => $baseDir . '/src/Kernel.php',
+    'App\\Repository\\EmDepartmentsRepository' => $baseDir . '/src/Repository/EmDepartmentsRepository.php',
     'App\\Repository\\UsersRepository' => $baseDir . '/src/Repository/UsersRepository.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',

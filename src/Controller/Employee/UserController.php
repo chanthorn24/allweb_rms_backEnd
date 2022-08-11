@@ -2,6 +2,8 @@
 
 namespace App\Controller\Employee;
 
+use App\Entity\EmDepartments;
+use App\Entity\UserRoles;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -20,7 +22,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user", name="all_user", methods="GET")
+     * @Route("/user", name="get_user", methods="GET")
      * @return JsonResponse
      */
     public function getAllUser(): JsonResponse
@@ -50,6 +52,8 @@ class UserController extends AbstractController
                         "is_married" => (boolean) $user->getIsMarried(),
                         "joinDate" => $user->getJoinDate(),
                         "isDelete" => (boolean) $user->getIsDelete(),
+                        "department" => $user->getEmDepartment()->getName(),
+                        "role" => $user->getUserRole()->getName(),
                     ];
                 }
             }
@@ -61,7 +65,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/create", name="create_user", methods="POST")
+     * @Route("/user/create", name="create_user", methods="POST")
      * @param Request $request
      * @param UserPasswordHasherInterface $passwordHasher
      * @return JsonResponse
@@ -92,7 +96,13 @@ class UserController extends AbstractController
 
             $user->setJoinDate(new \DateTime($param['joinDate']));
 
-            $user->setIsDelete(true);
+            $user->setIsDelete(false);
+
+            //relationship database
+            $department = $this->em->getRepository(EmDepartments::class)->find($param['em_department_id']);
+            $user->setEmDepartment($department);
+            $role = $this->em->getRepository(UserRoles::class)->find($param['user_role_id']);
+            $user->setUserRole($role);
 
             if($password !== $repeat_password) {
                 return $this->json(array("success" => false, "message" => "Password not matched"), 400);
@@ -137,7 +147,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/update/{id}", name="update_user", methods="POST")
+     * @Route("/user/update/{id}", name="update_user", methods="POST")
      * @param $id
      * @param Request $request
      * @return JsonResponse
@@ -194,6 +204,14 @@ class UserController extends AbstractController
             if(isset($param['joinDate'])) {
                 $user->setJoinDate(new \DateTime($param['joinDate']));
             }
+            if(isset($param['em_department_id'])) {
+                $department = $this->em->getRepository(EmDepartments::class)->find($param['em_department_id']);
+                $user->setEmDepartment($department);
+            }
+            if(isset($param['user_role_id'])) {
+                $role = $this->em->getRepository(UserRoles::class)->find($param['user_role_id']);
+                $user->setUserRole($role);
+            }
 
             $res[] = [
                 "id" => $user->getId(),
@@ -210,11 +228,13 @@ class UserController extends AbstractController
                 "religion" => $user->getReligion(),
                 "address" => $user->getAddress(),
                 "is_married" => $user->getIsMarried(),
-                "joinDate" => $user->getJoinDate()
+                "joinDate" => $user->getJoinDate(),
+                "department" => $user->getEmDepartment()->getName(),
+                "role" => $user->getUserRole()->getName(),
             ];
             //save to database
             $this->em->flush();
-            return $this->json(array("success" => true, "message" => "update successfully", "data" => $res), 200);
+            return $this->json(array("success" => true, "message" => "Updated successfully", "data" => $res), 200);
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }

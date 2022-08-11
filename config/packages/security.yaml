@@ -8,7 +8,7 @@ security:
         users_in_memory: { memory: null }
         app_user_provider:
             entity:
-                class: App\Entity\Users
+                class: App\Entity\Employee
                 property: email
     firewalls:
         dev:
@@ -44,7 +44,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api,       roles: [ ROLE_USER ] }
+        - { path: ^/api,       roles: ROLE_USER }
 
 when@test:
     security:

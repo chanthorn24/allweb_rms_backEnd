@@ -110,6 +110,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $modified;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=EmDepartments::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $em_department;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=UserRoles::class, inversedBy="users")
+     */
+    private $user_role;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -356,5 +367,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function __call($name, $arguments)
     {
         // TODO: Implement @method string getUserIdentifier()
+    }
+
+    public function getEmDepartment(): ?EmDepartments
+    {
+        return $this->em_department;
+    }
+
+    public function setEmDepartment(?EmDepartments $em_department): self
+    {
+        $this->em_department = $em_department;
+
+        return $this;
+    }
+
+    public function getUserRole(): ?UserRoles
+    {
+        return $this->user_role;
+    }
+
+    public function setUserRole(?UserRoles $user_role): self
+    {
+        $this->user_role = $user_role;
+
+        return $this;
     }
 }

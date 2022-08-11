@@ -5,7 +5,9 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.4",
+        "ext-cassandra": "*",
         "ext-ctype": "*",
+        "ext-http": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "doctrine/doctrine-bundle": "^2.7",
@@ -21,9 +23,7 @@
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/runtime": "5.4.*",
         "symfony/security-bundle": "5.4.*",
-        "symfony/yaml": "5.4.*",
-      "ext-cassandra": "*",
-      "ext-http": "*"
+        "symfony/yaml": "5.4.*"
     },
     "config": {
         "allow-plugins": {

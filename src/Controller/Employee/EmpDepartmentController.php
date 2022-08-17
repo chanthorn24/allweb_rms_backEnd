@@ -48,7 +48,6 @@ class EmpDepartmentController extends AbstractController
                     ];
                 }
             }
-
             return $this->json(array("success" => true, "data" => $res), 200);
 
         } catch (\Exception $error) {

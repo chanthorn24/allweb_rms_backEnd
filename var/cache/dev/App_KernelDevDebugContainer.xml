@@ -318,6 +318,7 @@
     <service id="App\Controller\Employee\EmpPositionsController" class="App\Controller\Employee\EmpPositionsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Employee\EmpPositionsController"/>
       </call>
@@ -380,6 +381,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\EmpFamiliesRepository" class="App\Repository\EmpFamiliesRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\EmpLeaveReasonsRepository" class="App\Repository\EmpLeaveReasonsRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -2319,7 +2324,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.tOD7U_."/>
+      <argument type="service" id=".service_locator.VWiLr7c"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4024,6 +4029,8 @@
     <service id=".abstract.instanceof.App\Repository\EmpDepartmentsRepository" class="App\Repository\EmpDepartmentsRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmpFamiliesRepository" class="App\Repository\EmpFamiliesRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\EmpFamiliesRepository" class="App\Repository\EmpFamiliesRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmpLeaveReasonsRepository" class="App\Repository\EmpLeaveReasonsRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\EmpLeaveReasonsRepository" class="App\Repository\EmpLeaveReasonsRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmpLeavesRepository" class="App\Repository\EmpLeavesRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\EmpLeavesRepository" class="App\Repository\EmpLeavesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmpPositionsRepository" class="App\Repository\EmpPositionsRepository" autowire="true" abstract="true"/>
@@ -4452,7 +4459,7 @@
         <argument key="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.tOD7U_." class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.VWiLr7c" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\BankAccountsRepository" type="service_closure" id="App\Repository\BankAccountsRepository"/>
@@ -4461,6 +4468,7 @@
         <argument key="App\Repository\EmpAttendancesRepository" type="service_closure" id="App\Repository\EmpAttendancesRepository"/>
         <argument key="App\Repository\EmpDepartmentsRepository" type="service_closure" id="App\Repository\EmpDepartmentsRepository"/>
         <argument key="App\Repository\EmpFamiliesRepository" type="service_closure" id="App\Repository\EmpFamiliesRepository"/>
+        <argument key="App\Repository\EmpLeaveReasonsRepository" type="service_closure" id="App\Repository\EmpLeaveReasonsRepository"/>
         <argument key="App\Repository\EmpLeavesRepository" type="service_closure" id="App\Repository\EmpLeavesRepository"/>
         <argument key="App\Repository\EmpPositionsRepository" type="service_closure" id="App\Repository\EmpPositionsRepository"/>
         <argument key="App\Repository\FamilyRelationshipsRepository" type="service_closure" id="App\Repository\FamilyRelationshipsRepository"/>

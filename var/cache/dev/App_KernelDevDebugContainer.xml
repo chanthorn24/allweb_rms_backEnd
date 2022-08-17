@@ -282,6 +282,10 @@
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Employee\UserRoleController"/>
       </call>
     </service>
+    <service id="App\Repository\BankAccountsRepository" class="App\Repository\BankAccountsRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\EmpDepartmentsRepository" class="App\Repository\EmpDepartmentsRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -2202,7 +2206,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.VGjaePT"/>
+      <argument type="service" id=".service_locator.sW29HZs"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3862,6 +3866,8 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Employee\UserRoleController" class="App\Controller\Employee\UserRoleController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Employee\UserRoleController" class="App\Controller\Employee\UserRoleController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Employee\UserRoleController" class="App\Controller\Employee\UserRoleController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\BankAccountsRepository" class="App\Repository\BankAccountsRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\BankAccountsRepository" class="App\Repository\BankAccountsRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmpDepartmentsRepository" class="App\Repository\EmpDepartmentsRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\EmpDepartmentsRepository" class="App\Repository\EmpDepartmentsRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRolesRepository" class="App\Repository\UserRolesRepository" autowire="true" abstract="true"/>
@@ -4282,9 +4288,10 @@
         <argument key="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.VGjaePT" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.sW29HZs" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\BankAccountsRepository" type="service_closure" id="App\Repository\BankAccountsRepository"/>
         <argument key="App\Repository\EmpDepartmentsRepository" type="service_closure" id="App\Repository\EmpDepartmentsRepository"/>
         <argument key="App\Repository\UserRolesRepository" type="service_closure" id="App\Repository\UserRolesRepository"/>
         <argument key="App\Repository\UsersRepository" type="service_closure" id="App\Repository\UsersRepository"/>

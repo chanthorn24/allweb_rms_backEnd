@@ -405,14 +405,17 @@ class ComposerStaticInit75b906d1a59e7073a889f479c0dee403
     );
 
     public static $classMap = array (
-        'App\\Controller\\Employee\\EmDepartmentController' => __DIR__ . '/../..' . '/src/Controller/Employee/EmDepartmentController.php',
+        'App\\Controller\\Employee\\EmpDepartmentController' => __DIR__ . '/../..' . '/src/Controller/Employee/EmpDepartmentController.php',
         'App\\Controller\\Employee\\UserController' => __DIR__ . '/../..' . '/src/Controller/Employee/UserController.php',
         'App\\Controller\\Employee\\UserRoleController' => __DIR__ . '/../..' . '/src/Controller/Employee/UserRoleController.php',
-        'App\\Entity\\EmDepartments' => __DIR__ . '/../..' . '/src/Entity/EmDepartments.php',
+        'App\\Entity\\BankAccounts' => __DIR__ . '/../..' . '/src/Entity/BankAccounts.php',
+        'App\\Entity\\EmpDepartments' => __DIR__ . '/../..' . '/src/Entity/EmpDepartments.php',
         'App\\Entity\\UserRoles' => __DIR__ . '/../..' . '/src/Entity/UserRoles.php',
         'App\\Entity\\Users' => __DIR__ . '/../..' . '/src/Entity/Users.php',
+        'App\\Form\\BankAccountsType' => __DIR__ . '/../..' . '/src/Form/BankAccountsType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
-        'App\\Repository\\EmDepartmentsRepository' => __DIR__ . '/../..' . '/src/Repository/EmDepartmentsRepository.php',
+        'App\\Repository\\BankAccountsRepository' => __DIR__ . '/../..' . '/src/Repository/BankAccountsRepository.php',
+        'App\\Repository\\EmpDepartmentsRepository' => __DIR__ . '/../..' . '/src/Repository/EmpDepartmentsRepository.php',
         'App\\Repository\\UserRolesRepository' => __DIR__ . '/../..' . '/src/Repository/UserRolesRepository.php',
         'App\\Repository\\UsersRepository' => __DIR__ . '/../..' . '/src/Repository/UsersRepository.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

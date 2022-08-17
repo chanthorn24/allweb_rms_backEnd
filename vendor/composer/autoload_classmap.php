@@ -6,14 +6,17 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Controller\\Employee\\EmDepartmentController' => $baseDir . '/src/Controller/Employee/EmDepartmentController.php',
+    'App\\Controller\\Employee\\EmpDepartmentController' => $baseDir . '/src/Controller/Employee/EmpDepartmentController.php',
     'App\\Controller\\Employee\\UserController' => $baseDir . '/src/Controller/Employee/UserController.php',
     'App\\Controller\\Employee\\UserRoleController' => $baseDir . '/src/Controller/Employee/UserRoleController.php',
-    'App\\Entity\\EmDepartments' => $baseDir . '/src/Entity/EmDepartments.php',
+    'App\\Entity\\BankAccounts' => $baseDir . '/src/Entity/BankAccounts.php',
+    'App\\Entity\\EmpDepartments' => $baseDir . '/src/Entity/EmpDepartments.php',
     'App\\Entity\\UserRoles' => $baseDir . '/src/Entity/UserRoles.php',
     'App\\Entity\\Users' => $baseDir . '/src/Entity/Users.php',
+    'App\\Form\\BankAccountsType' => $baseDir . '/src/Form/BankAccountsType.php',
     'App\\Kernel' => $baseDir . '/src/Kernel.php',
-    'App\\Repository\\EmDepartmentsRepository' => $baseDir . '/src/Repository/EmDepartmentsRepository.php',
+    'App\\Repository\\BankAccountsRepository' => $baseDir . '/src/Repository/BankAccountsRepository.php',
+    'App\\Repository\\EmpDepartmentsRepository' => $baseDir . '/src/Repository/EmpDepartmentsRepository.php',
     'App\\Repository\\UserRolesRepository' => $baseDir . '/src/Repository/UserRolesRepository.php',
     'App\\Repository\\UsersRepository' => $baseDir . '/src/Repository/UsersRepository.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

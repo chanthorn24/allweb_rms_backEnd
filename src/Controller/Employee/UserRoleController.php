@@ -43,7 +43,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/api/role/create", name="create_role", methods="POST")
+     * @Route("/role/create", name="create_role", methods="POST")
      * @param Request $request
      * @return JsonResponse
      */

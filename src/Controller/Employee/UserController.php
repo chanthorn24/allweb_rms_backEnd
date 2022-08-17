@@ -2,7 +2,7 @@
 
 namespace App\Controller\Employee;
 
-use App\Entity\EmDepartments;
+use App\Entity\EmpDepartments;
 use App\Entity\UserRoles;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,7 +52,7 @@ class UserController extends AbstractController
                         "is_married" => (boolean) $user->getIsMarried(),
                         "joinDate" => $user->getJoinDate(),
                         "isDelete" => (boolean) $user->getIsDelete(),
-                        "department" => $user->getEmDepartment()->getName(),
+                        "department" => $user->getEmpDepartment()->getName(),
                         "role" => $user->getUserRole()->getName(),
                     ];
                 }
@@ -65,7 +65,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/create", name="create_user", methods="POST")
+     * @Route("/user/create", name="create_user", methods="POST")
      * @param Request $request
      * @param UserPasswordHasherInterface $passwordHasher
      * @return JsonResponse
@@ -99,8 +99,8 @@ class UserController extends AbstractController
             $user->setIsDelete(false);
 
             //relationship database
-            $department = $this->em->getRepository(EmDepartments::class)->find($param['em_department_id']);
-            $user->setEmDepartment($department);
+            $department = $this->em->getRepository(EmpDepartments::class)->find($param['em_department_id']);
+            $user->setEmpDepartment($department);
             $role = $this->em->getRepository(UserRoles::class)->find($param['user_role_id']);
             $user->setUserRole($role);
 
@@ -205,8 +205,8 @@ class UserController extends AbstractController
                 $user->setJoinDate(new \DateTime($param['joinDate']));
             }
             if(isset($param['em_department_id'])) {
-                $department = $this->em->getRepository(EmDepartments::class)->find($param['em_department_id']);
-                $user->setEmDepartment($department);
+                $department = $this->em->getRepository(EmpDepartments::class)->find($param['em_department_id']);
+                $user->setEmpDepartment($department);
             }
             if(isset($param['user_role_id'])) {
                 $role = $this->em->getRepository(UserRoles::class)->find($param['user_role_id']);
@@ -229,7 +229,7 @@ class UserController extends AbstractController
                 "address" => $user->getAddress(),
                 "is_married" => $user->getIsMarried(),
                 "joinDate" => $user->getJoinDate(),
-                "department" => $user->getEmDepartment()->getName(),
+                "department" => $user->getEmpDepartment()->getName(),
                 "role" => $user->getUserRole()->getName(),
             ];
             //save to database

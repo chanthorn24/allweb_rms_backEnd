@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
-use Cassandra\Tinyint;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -111,10 +110,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $modified;
 
     /**
-     * @ORM\ManyToOne(targetEntity=EmDepartments::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=EmpDepartments::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $em_department;
+    private $emp_department;
 
     /**
      * @ORM\ManyToOne(targetEntity=UserRoles::class, inversedBy="users")
@@ -369,14 +368,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // TODO: Implement @method string getUserIdentifier()
     }
 
-    public function getEmDepartment(): ?EmDepartments
+    public function getEmpDepartment(): ?EmpDepartments
     {
-        return $this->em_department;
+        return $this->emp_department;
     }
 
-    public function setEmDepartment(?EmDepartments $em_department): self
+    public function setEmpDepartment(?EmpDepartments $emp_department): self
     {
-        $this->em_department = $em_department;
+        $this->emp_department = $emp_department;
 
         return $this;
     }

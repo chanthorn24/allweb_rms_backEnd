@@ -43,7 +43,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/role/create", name="create_role", methods="POST")
+     * @Route("/api/role/create", name="create_role", methods="POST")
      * @param Request $request
      * @return JsonResponse
      */
@@ -66,7 +66,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/role/update", name="update_role", methods="POST")
+     * @Route("/api/role/update", name="update_role", methods="POST")
      * @param $id
      * @param Request $request
      * @return JsonResponse
@@ -96,7 +96,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/role/delete", name="delete_role", methods="DELETE")
+     * @Route("/api/role/delete", name="delete_role", methods="DELETE")
      * @param $id
      * @return JsonResponse
      */

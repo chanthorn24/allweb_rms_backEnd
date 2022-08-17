@@ -65,7 +65,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/create", name="create_user", methods="POST")
+     * @Route("/api/user/create", name="create_user", methods="POST")
      * @param Request $request
      * @param UserPasswordHasherInterface $passwordHasher
      * @return JsonResponse

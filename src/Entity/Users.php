@@ -348,9 +348,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // TODO: Implement getRoles() method.
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
-        // TODO: Implement getSalt() method.
+        return "";
     }
 
     public function eraseCredentials()

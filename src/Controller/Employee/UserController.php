@@ -216,6 +216,10 @@ class UserController extends AbstractController
                 $role = $this->em->getRepository(UserRoles::class)->find($param['user_role_id']);
                 $user->setUserRole($role);
             }
+            if(isset($param['emp_position_id'])) {
+                $position = $this->em->getRepository(EmpPositions::class)->find($param['emp_position_id']);
+                $user->setUserRole($position);
+            }
 
             $res[] = [
                 "id" => $user->getId(),
@@ -235,7 +239,9 @@ class UserController extends AbstractController
                 "joinDate" => $user->getJoinDate(),
                 "department" => $user->getEmpDepartment()->getName(),
                 "role" => $user->getUserRole()->getName(),
+                "position" => $user->getEmpPosition()->getName(),
             ];
+
             //save to database
             $this->em->flush();
             return $this->json(array("success" => true, "message" => "Updated successfully", "data" => $res), 200);

@@ -120,6 +120,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $user_role;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=EmpPositions::class, inversedBy="users")
+     */
+    private $emp_position;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -387,6 +392,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserRole(?UserRoles $user_role): self
     {
         $this->user_role = $user_role;
+
+        return $this;
+    }
+
+    public function getEmpPosition(): ?EmpPositions
+    {
+        return $this->emp_position;
+    }
+
+    public function setEmpPosition(?EmpPositions $emp_position): self
+    {
+        $this->emp_position = $emp_position;
 
         return $this;
     }

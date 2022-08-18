@@ -32,10 +32,17 @@ class EmpPositionsController extends AbstractController
                 throw new \RuntimeException("No Data is Found");
             }
             foreach($position as $pos){
+                $userCollection = [];
                 if(!$pos->getIsDelete()){
+                    foreach ($pos->getUsers() as $user) {
+                        $userCollection[] = [
+                            "name" => $user->getEmail(),
+                        ];
+                    }
                     $res[] = [
                         "id"=>$pos->getId(),
-                        "name"=>$pos->getName()
+                        "name"=>$pos->getName(),
+                        "Users" => $userCollection,
                     ];
                 }
             }

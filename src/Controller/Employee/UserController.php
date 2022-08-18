@@ -3,6 +3,7 @@
 namespace App\Controller\Employee;
 
 use App\Entity\EmpDepartments;
+use App\Entity\EmpPositions;
 use App\Entity\UserRoles;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,6 +55,7 @@ class UserController extends AbstractController
                         "isDelete" => (boolean) $user->getIsDelete(),
                         "department" => $user->getEmpDepartment()->getName(),
                         "role" => $user->getUserRole()->getName(),
+                        "position" => $user->getEmpPosition()->getName(),
                     ];
                 }
             }
@@ -99,10 +101,12 @@ class UserController extends AbstractController
             $user->setIsDelete(false);
 
             //relationship database
-            $department = $this->em->getRepository(EmpDepartments::class)->find($param['em_department_id']);
+            $department = $this->em->getRepository(EmpDepartments::class)->find($param['emp_department_id']);
             $user->setEmpDepartment($department);
             $role = $this->em->getRepository(UserRoles::class)->find($param['user_role_id']);
             $user->setUserRole($role);
+            $position = $this->em->getRepository(EmpPositions::class)->find($param['emp_position_id']);
+            $user->setEmpPosition($position);
 
             if($password !== $repeat_password) {
                 return $this->json(array("success" => false, "message" => "Password not matched"), 400);
@@ -116,7 +120,7 @@ class UserController extends AbstractController
             $this->em->flush();
 
             //return data
-            return $this->json(array("success" => true, "message" => "create successfully", "hash" => $hashedPassword, "password" => $password), 200);
+            return $this->json(array("success" => true, "message" => "Create successfully", "hash" => $hashedPassword, "password" => $password), 200);
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => "email has already taken", "error" => $error->getMessage()), 400);
         }
@@ -136,7 +140,7 @@ class UserController extends AbstractController
 
         $user = $this->em->getRepository(Users::class)->findOneBy(array("email" => $email));
         if(!$user) {
-            return $this->json(array("success" => false, "message" => "no data has found"), 500);
+            return $this->json(array("success" => false, "message" => "No data has found"), 500);
         }
 
         if ($passwordHasher->isPasswordValid($user, $password)) {
@@ -159,7 +163,7 @@ class UserController extends AbstractController
         try {
             $user = $this->em->getRepository(Users::class)->find($id);
             if(!$user) {
-                return $this->json(array("success" => false, "message" => "no data has found"), 500);
+                return $this->json(array("success" => false, "message" => "No data has found"), 500);
             }
 
             if(isset($param['firstName'])) {
@@ -250,13 +254,13 @@ class UserController extends AbstractController
         try {
             $user = $this->em->getRepository(Users::class)->find($id);
             if(!$user) {
-                return $this->json(array("success" => false, "message" => "no data has found"), 500);
+                return $this->json(array("success" => false, "message" => "No data has found"), 500);
             }
 
             $user->setIsDelete(true);
             //save database
             $this->em->flush();
-            return $this->json(array("success" => true, "message" => "Delete successfully"), 200);
+            return $this->json(array("success" => true, "message" => "Deleted successfully"), 200);
         }catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }

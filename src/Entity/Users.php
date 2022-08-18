@@ -343,8 +343,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): ?array
     {
-        return array("ROLE_USER");
-        // TODO: Implement getRoles() method.
+        return array("role" => $this->user_role->getName());
     }
 
     public function getSalt(): ?string

@@ -143,7 +143,7 @@ class UserController extends AbstractController
             $token = $JWTToken->create($user);
             return $this->json(array("success" => true, "message" => "Log in successfully", "token" => $token));
         }
-        return $this->json("false");
+        return $this->json(array("success" => false, "message" => "Email or password is incorrect"));
     }
 
     /**

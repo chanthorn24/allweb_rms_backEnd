@@ -18,6 +18,7 @@ return [
         '/department/create' => [[['_route' => 'create_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::create'], null, ['POST' => 0], null, false, false, null]],
         '/employee/emp/families' => [[['_route' => 'app_employee_emp_families', '_controller' => 'App\\Controller\\Employee\\EmpFamiliesController::index'], null, null, null, false, false, null]],
         '/employee/positions' => [[['_route' => 'app_employee_emp_positions', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::getAll'], null, ['GET' => 0], null, false, false, null]],
+        '/employee/positions/create' => [[['_route' => 'create_positions', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::create'], null, ['POST' => 0], null, false, false, null]],
         '/employee/family/relationships' => [[['_route' => 'app_employee_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::index'], null, null, null, false, false, null]],
         '/employee/school/degrees' => [[['_route' => 'app_employee_school_degrees', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::index'], null, null, null, false, false, null]],
         '/user' => [[['_route' => 'get_user', '_controller' => 'App\\Controller\\Employee\\UserController::getAllUser'], null, ['GET' => 0], null, false, false, null]],

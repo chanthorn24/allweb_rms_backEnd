@@ -4,8 +4,8 @@ namespace App\Controller\Employee;
 
 use App\Entity\SchoolDegrees;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +34,7 @@ class SchoolDegreesController extends AbstractController
             }
 
             foreach ($emp_degrees as $emp_degree) {
-                if(!$emp_degree->setIsDelete()) {
+                if(!$emp_degree->getIsDelete()) {
                     $res[] = [
                         "id" => $emp_degree->getId(),
                         "name" => $emp_degree->getName(),

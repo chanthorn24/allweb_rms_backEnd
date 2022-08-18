@@ -32,6 +32,16 @@ class EmpFamilies
      */
     private $is_delete;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=FamilyRelationships::class, inversedBy="empFamilies")
+     */
+    private $family_relationship;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="empFamilies")
+     */
+    private $employee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class EmpFamilies
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    public function getFamilyRelationship(): ?FamilyRelationships
+    {
+        return $this->family_relationship;
+    }
+
+    public function setFamilyRelationship(?FamilyRelationships $family_relationship): self
+    {
+        $this->family_relationship = $family_relationship;
+
+        return $this;
+    }
+
+    public function getEmployee(): ?Users
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Users $employee): self
+    {
+        $this->employee = $employee;
 
         return $this;
     }

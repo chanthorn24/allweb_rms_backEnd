@@ -3,13 +3,14 @@
 namespace App\Controller\Employee;
 
 use App\Entity\EmpFamilies;
+use App\Entity\FamilyRelationships;
+use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
-use RuntimeException;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 /**
  * @Route("employee/family")
@@ -37,7 +38,9 @@ class EmpFamiliesController extends AbstractController
                 $res[] = [
                     "id" => $fam->getId(),
                     "name" => $fam->getName(),
-                    "phone" => $fam->getPhone()
+                    "phone" => $fam->getPhone(),
+                    "family_relationship" => $fam->getFamilyRelationship()->getName(),
+                    "employee_id" => $fam->getEmployee()->getId(),
                 ];
             }
             return $this->json(array("success" => true, "message" => $res), 200);
@@ -57,6 +60,16 @@ class EmpFamiliesController extends AbstractController
             $families->setName($param['name']);
             $families->setPhone($param['phone']);
             $families->setIsDelete(false);
+
+            //joint table
+            $family_relationship = $this->em->getRepository(FamilyRelationships::class)->find($param['family_relationship_id']);
+            $families->setFamilyRelationship($family_relationship);
+            $employee = $this->em->getRepository(Users::class)->find($param['employee_id']);
+            if($employee) {
+                $families->setEmployee($employee);
+            } else {
+                $families->setEmployee(null);
+            }
 
             $this->em->persist($families);
             $this->em->flush($families);
@@ -82,6 +95,18 @@ class EmpFamiliesController extends AbstractController
             if (isset($param['name']) && isset($param['phone'])) {
                 $family->setName($param['name']);
                 $family->setPhone($param['phone']);
+            }
+            if (isset($param['family_relationship_id'])) {
+                $family_relationship = $this->em->getRepository(FamilyRelationships::class)->find($param['family_relationship_id']);
+                $family->setFamilyRelationship($family_relationship);
+            }
+            if(isset($param['employee_id'])) {
+                $employee = $this->em->getRepository(Users::class)->find($param['employee_id']);
+                if ($employee) {
+                    $family->setEmployee($employee);
+                } else {
+                    $family->setEmployee(null);
+                }
             }
 
             $this->em->flush($family);

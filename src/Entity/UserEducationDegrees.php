@@ -27,6 +27,16 @@ class UserEducationDegrees
      */
     private $is_delete;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SchoolDegrees::class, inversedBy="userEducationDegrees")
+     */
+    private $school_degree;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Users::class, mappedBy="user_education_degree", cascade={"persist", "remove"})
+     */
+    private $users;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,40 @@ class UserEducationDegrees
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    public function getSchoolDegree(): ?SchoolDegrees
+    {
+        return $this->school_degree;
+    }
+
+    public function setSchoolDegree(?SchoolDegrees $school_degree): self
+    {
+        $this->school_degree = $school_degree;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($users === null && $this->users !== null) {
+            $this->users->setUserEducationDegree(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($users !== null && $users->getUserEducationDegree() !== $this) {
+            $users->setUserEducationDegree($this);
+        }
+
+        $this->users = $users;
 
         return $this;
     }

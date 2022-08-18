@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FamilyRelationshipsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class FamilyRelationships
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EmpFamilies::class, mappedBy="family_relationship")
+     */
+    private $empFamilies;
+
+    public function __construct()
+    {
+        $this->empFamilies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,36 @@ class FamilyRelationships
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmpFamilies>
+     */
+    public function getEmpFamilies(): Collection
+    {
+        return $this->empFamilies;
+    }
+
+    public function addEmpFamily(EmpFamilies $empFamily): self
+    {
+        if (!$this->empFamilies->contains($empFamily)) {
+            $this->empFamilies[] = $empFamily;
+            $empFamily->setFamilyRelationship($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmpFamily(EmpFamilies $empFamily): self
+    {
+        if ($this->empFamilies->removeElement($empFamily)) {
+            // set the owning side to null (unless already changed)
+            if ($empFamily->getFamilyRelationship() === $this) {
+                $empFamily->setFamilyRelationship(null);
+            }
+        }
 
         return $this;
     }

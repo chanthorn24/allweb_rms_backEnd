@@ -4,7 +4,7 @@ namespace App\Controller\Employee;
 
 use App\Entity\Banks;
 use Doctrine\ORM\EntityManagerInterface;
-use RuntimeException;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

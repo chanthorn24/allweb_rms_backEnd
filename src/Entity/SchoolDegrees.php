@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SchoolDegreesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class SchoolDegrees
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserEducationDegrees::class, mappedBy="school_degree")
+     */
+    private $userEducationDegrees;
+
+    public function __construct()
+    {
+        $this->userEducationDegrees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,36 @@ class SchoolDegrees
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserEducationDegrees>
+     */
+    public function getUserEducationDegrees(): Collection
+    {
+        return $this->userEducationDegrees;
+    }
+
+    public function addUserEducationDegree(UserEducationDegrees $userEducationDegree): self
+    {
+        if (!$this->userEducationDegrees->contains($userEducationDegree)) {
+            $this->userEducationDegrees[] = $userEducationDegree;
+            $userEducationDegree->setSchoolDegree($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEducationDegree(UserEducationDegrees $userEducationDegree): self
+    {
+        if ($this->userEducationDegrees->removeElement($userEducationDegree)) {
+            // set the owning side to null (unless already changed)
+            if ($userEducationDegree->getSchoolDegree() === $this) {
+                $userEducationDegree->setSchoolDegree(null);
+            }
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -130,6 +132,21 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $bank_account;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EmpFamilies::class, mappedBy="employee")
+     */
+    private $empFamilies;
+
+    /**
+     * @ORM\OneToOne(targetEntity=UserEducationDegrees::class, inversedBy="users", cascade={"persist", "remove"})
+     */
+    private $user_education_degree;
+
+    public function __construct()
+    {
+        $this->empFamilies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -422,6 +439,48 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBankAccount(?BankAccounts $bank_account): self
     {
         $this->bank_account = $bank_account;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmpFamilies>
+     */
+    public function getEmpFamilies(): Collection
+    {
+        return $this->empFamilies;
+    }
+
+    public function addEmpFamily(EmpFamilies $empFamily): self
+    {
+        if (!$this->empFamilies->contains($empFamily)) {
+            $this->empFamilies[] = $empFamily;
+            $empFamily->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmpFamily(EmpFamilies $empFamily): self
+    {
+        if ($this->empFamilies->removeElement($empFamily)) {
+            // set the owning side to null (unless already changed)
+            if ($empFamily->getEmployee() === $this) {
+                $empFamily->setEmployee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserEducationDegree(): ?UserEducationDegrees
+    {
+        return $this->user_education_degree;
+    }
+
+    public function setUserEducationDegree(?UserEducationDegrees $user_education_degree): self
+    {
+        $this->user_education_degree = $user_education_degree;
 
         return $this;
     }

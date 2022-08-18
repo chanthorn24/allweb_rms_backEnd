@@ -35,9 +35,16 @@ class UserController extends AbstractController
             }
 
             foreach ($users as $user) {
-//                $res = [];
+                $emp_family = [];
+                foreach ($user->getEmpFamilies() as $family) {
+                    $emp_family[] = [
+                        "name" => $family->getName(),
+                        "phone" => $family->getPhone(),
+                        "relationship" => $family->getFamilyRelationship()->getName(),
+                    ];
+                }
                 if(!$user->getIsDelete()) {
-                    $res[] = [
+                    $res = [
                         "id" => $user->getId(),
                         "firstName" => $user->getFirstName(),
                         "lastName" => $user->getLastName(),
@@ -51,26 +58,45 @@ class UserController extends AbstractController
                         "nationality" => $user->getNationality(),
                         "religion" => $user->getReligion(),
                         "address" => $user->getAddress(),
-                        "is_married" => (boolean) $user->getIsMarried(),
+                        "is_married" => (boolean)$user->getIsMarried(),
                         "joinDate" => $user->getJoinDate(),
-                        "isDelete" => (boolean) $user->getIsDelete(),
+                        "isDelete" => (boolean)$user->getIsDelete(),
                         "department" => $user->getEmpDepartment()->getName(),
                         "role" => $user->getUserRole()->getName(),
+                        "family" => $emp_family,
                     ];
-                    $res2 = [];
-                    if($user->getBankAccount() !== null) {
-                        $res2[] = [
+
+                    //default if null
+                    $res2 = [
+                        "bank_name" => null,
+                        "bank_no" => null,
+                        "bank" => null
+                    ];
+                    if($user->getBankAccount()) {
+                        $res2 = [
                             "bank_name" => $user->getBankAccount()->getName(),
                             "bank_no" => $user->getBankAccount()->getNumber(),
                             "bank" => $user->getBankAccount()->getBank()->getName(),
                         ];
                     }
 
-                    $result[] = $res+ $res2;
+                    $res3 = [
+                        "school" => null,
+                        "degree" => null,
+                    ];
+                    if($user->getUserEducationDegree()) {
+                        $res3 = [
+                            "school" => $user->getUserEducationDegree()->getSchool(),
+                            "degree" => $user->getUserEducationDegree()->getSchoolDegree()->getName(),
+                        ];
+                    }
+
+                    //combine objects
+                    $result[] = $res + $res2 + $res3;
                 }
             }
 
-            return $this->json(array("success" => true, "data" => $res), 200);
+            return $this->json(array("success" => true, "data" => $result), 200);
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }

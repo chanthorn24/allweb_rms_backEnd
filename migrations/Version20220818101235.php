@@ -29,7 +29,7 @@ final class Version20220818101235 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE emp_departments CHANGE created created DATETIME DEFAULT CURRENT_TIMESTAMP, CHANGE modified modified DATETIME DEFAULT CURRENT_TIMESTAMP');
+//        $this->addSql('ALTER TABLE emp_departments CHANGE created created DATETIME DEFAULT CURRENT_TIMESTAMP, CHANGE modified modified DATETIME DEFAULT CURRENT_TIMESTAMP');
         $this->addSql('ALTER TABLE users DROP FOREIGN KEY FK_1483A5E912CB990C');
         $this->addSql('DROP INDEX UNIQ_1483A5E912CB990C ON users');
         $this->addSql('ALTER TABLE users DROP bank_account_id, CHANGE created created DATETIME DEFAULT CURRENT_TIMESTAMP, CHANGE modified modified DATETIME DEFAULT CURRENT_TIMESTAMP');

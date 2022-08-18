@@ -2,9 +2,10 @@
 
 namespace App\Controller\Employee;
 
+use App\Entity\SchoolDegrees;
 use App\Entity\UserEducationDegrees;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Exception\RuntimeException;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +38,7 @@ class UserEducationDegreesController extends AbstractController
                 if(!$education->getIsDelete()) {
                     $res[] = [
                         "school" => $education->getSchool(),
+                        "degree" => $education->getSchoolDegree()->getName(),
                         "is_delete" => $education->getIsDelete(),
                     ];
                 }
@@ -61,6 +63,10 @@ class UserEducationDegreesController extends AbstractController
 
             $emp_education->setSchool($param['school']);
             $emp_education->setIsDelete(false);
+
+            //joint table
+            $degree = $this->em->getRepository(SchoolDegrees::class)->find($param['school_degree_id']);
+            $emp_education->setSchoolDegree($degree);
 
             //save data to database
             $this->em->persist($emp_education);

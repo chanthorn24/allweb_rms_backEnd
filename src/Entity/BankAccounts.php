@@ -32,6 +32,11 @@ class BankAccounts
      */
     private $is_delete;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Banks::class, inversedBy="bankAccounts")
+     */
+    private $bank;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class BankAccounts
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    public function getBank(): ?Banks
+    {
+        return $this->bank;
+    }
+
+    public function setBank(?Banks $bank): self
+    {
+        $this->bank = $bank;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Controller\Employee;
 
 use App\Entity\BankAccounts;
+use App\Entity\Banks;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +38,9 @@ class BankAccountsController extends AbstractController
                     $res[] = [
                         "id" => $bankAcc->getId(),
                         "name" => $bankAcc->getName(),
-                        "number" => $bankAcc->getNumber()
+                        "number" => $bankAcc->getNumber(),
+                        "bank" => $bankAcc->getBank()->getName()
+
                     ];
                 }
 
@@ -61,6 +64,11 @@ class BankAccountsController extends AbstractController
             $bankAccount->setName($param['name']);
             $bankAccount->setNumber($param['number']);
             $bankAccount->setIsDelete(false);
+
+            //join table
+            $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
+            $bankAccount->setBank($bank);
+
             //save
             $this->em->persist($bankAccount);
             $this->em->flush($bankAccount);
@@ -89,6 +97,11 @@ class BankAccountsController extends AbstractController
             if(isset($param['name']) && isset($param['number'])){
                 $bankAccount->setName($param['name']);
                 $bankAccount->setNumber($param['number']);
+            }
+
+            if(isset($param['bank_id'])){
+                $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
+                $bankAccount->setName($bank);
             }
 
             //update db

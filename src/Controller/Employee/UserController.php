@@ -35,6 +35,7 @@ class UserController extends AbstractController
             }
 
             foreach ($users as $user) {
+//                $res = [];
                 if(!$user->getIsDelete()) {
                     $res[] = [
                         "id" => $user->getId(),
@@ -55,8 +56,17 @@ class UserController extends AbstractController
                         "isDelete" => (boolean) $user->getIsDelete(),
                         "department" => $user->getEmpDepartment()->getName(),
                         "role" => $user->getUserRole()->getName(),
-                        "position" => $user->getEmpPosition()->getName(),
                     ];
+                    $res2 = [];
+                    if($user->getBankAccount() !== null) {
+                        $res2[] = [
+                            "bank_name" => $user->getBankAccount()->getName(),
+                            "bank_no" => $user->getBankAccount()->getNumber(),
+                            "bank" => $user->getBankAccount()->getBank()->getName(),
+                        ];
+                    }
+
+                    $result[] = $res+ $res2;
                 }
             }
 

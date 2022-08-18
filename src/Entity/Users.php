@@ -125,6 +125,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $emp_position;
 
+    /**
+     * @ORM\OneToOne(targetEntity=BankAccounts::class, inversedBy="users", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $bank_account;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -404,6 +410,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmpPosition(?EmpPositions $emp_position): self
     {
         $this->emp_position = $emp_position;
+
+        return $this;
+    }
+
+    public function getBankAccount(): ?BankAccounts
+    {
+        return $this->bank_account;
+    }
+
+    public function setBankAccount(?BankAccounts $bank_account): self
+    {
+        $this->bank_account = $bank_account;
 
         return $this;
     }

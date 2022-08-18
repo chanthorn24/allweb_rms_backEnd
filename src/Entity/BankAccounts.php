@@ -37,6 +37,11 @@ class BankAccounts
      */
     private $bank;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Users::class, mappedBy="bank_account", cascade={"persist", "remove"})
+     */
+    private $users;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,28 @@ class BankAccounts
     public function setBank(?Banks $bank): self
     {
         $this->bank = $bank;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($users === null && $this->users !== null) {
+            $this->users->setBankAccount(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($users !== null && $users->getBankAccount() !== $this) {
+            $users->setBankAccount($this);
+        }
+
+        $this->users = $users;
 
         return $this;
     }

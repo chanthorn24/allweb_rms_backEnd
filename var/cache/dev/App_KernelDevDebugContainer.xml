@@ -293,6 +293,7 @@
     <service id="App\Controller\Employee\BankAccountsController" class="App\Controller\Employee\BankAccountsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Employee\BankAccountsController"/>
       </call>
@@ -300,6 +301,7 @@
     <service id="App\Controller\Employee\BanksController" class="App\Controller\Employee\BanksController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Employee\BanksController"/>
       </call>
@@ -315,6 +317,7 @@
     <service id="App\Controller\Employee\EmpFamiliesController" class="App\Controller\Employee\EmpFamiliesController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Employee\EmpFamiliesController"/>
       </call>
@@ -330,6 +333,7 @@
     <service id="App\Controller\Employee\FamilyRelationshipsController" class="App\Controller\Employee\FamilyRelationshipsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Employee\FamilyRelationshipsController"/>
       </call>
@@ -4379,13 +4383,6 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.KfbR3DY.Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".errored.Bgqk17i" class="http\Env\Request"/>
-    <service id=".service_locator.vj0MEKB" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="request" type="service_closure" id=".errored.Bgqk17i"/>
-      </argument>
-    </service>
     <service id=".service_locator.nWpr6Po" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -4399,10 +4396,9 @@
         <argument key="passwordHasher" type="service_closure" id="security.user_password_hasher"/>
       </argument>
     </service>
-    <service id=".service_locator.I6WYWH0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.cuoRjlV" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\Employee\EmpPositionsController::create" type="service_closure" id=".service_locator.vj0MEKB"/>
         <argument key="App\Controller\Employee\UserController::create" type="service_closure" id=".service_locator.nWpr6Po"/>
         <argument key="App\Controller\Employee\UserController::login" type="service_closure" id=".service_locator.tgSnr9M"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
@@ -4411,7 +4407,6 @@
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel::terminate" type="service_closure" id=".service_locator.KfwZsne"/>
-        <argument key="App\Controller\Employee\EmpPositionsController:create" type="service_closure" id=".service_locator.vj0MEKB"/>
         <argument key="App\Controller\Employee\UserController:create" type="service_closure" id=".service_locator.nWpr6Po"/>
         <argument key="App\Controller\Employee\UserController:login" type="service_closure" id=".service_locator.tgSnr9M"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
@@ -4744,12 +4739,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.I6WYWH0"/>
+      <argument type="service" id=".service_locator.cuoRjlV"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.I6WYWH0"/>
+      <argument type="service" id=".service_locator.cuoRjlV"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -5416,7 +5411,7 @@
     <service id="Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface" alias="lexik_jwt_authentication.encoder.lcobucci"/>
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.I6WYWH0"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.cuoRjlV"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -5425,7 +5420,7 @@
     <service id=".service_locator.k3s3K.2" alias=".service_locator.fPFDSMP"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.EOIDWKZ" alias=".service_locator.tgSnr9M"/>
-    <service id=".service_locator.ZOm3BXT" alias=".service_locator.I6WYWH0"/>
+    <service id=".service_locator.T66LF2C" alias=".service_locator.cuoRjlV"/>
     <service id=".service_locator.4hi2aOY" alias=".service_locator.bBRwv06"/>
     <service id=".service_locator.W9y3dzm" alias=".service_locator.GNc8e5B"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>

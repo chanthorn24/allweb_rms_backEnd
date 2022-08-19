@@ -3,5 +3,5 @@ lexik_jwt_authentication:
     public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
     pass_phrase: '%env(JWT_PASSPHRASE)%'
     #expired token 1hour
-    token_ttl: 360000
+    token_ttl: 3600
     user_identity_field: email

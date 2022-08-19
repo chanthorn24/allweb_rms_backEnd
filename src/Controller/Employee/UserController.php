@@ -187,7 +187,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/update/{id}", name="update_user", methods="POST")
+     * @Route("/user/update/{id}", name="update_user", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

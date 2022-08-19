@@ -77,7 +77,7 @@ class EmpPositionsController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="update_position", methods="POST")
+     * @Route("/update/{id}", name="update_position", methods="PUT")
      * @param Request $request
      * @param $id
      * @return JsonResponse

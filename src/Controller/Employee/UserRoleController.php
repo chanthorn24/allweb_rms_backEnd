@@ -66,7 +66,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/api/role/update", name="update_role", methods="POST")
+     * @Route("/api/role/update", name="update_role", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

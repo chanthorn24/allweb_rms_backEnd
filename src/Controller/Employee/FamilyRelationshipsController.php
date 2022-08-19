@@ -59,7 +59,7 @@ class FamilyRelationshipsController extends AbstractController
         }
     }
     /**
-     * @Route("/update/{id}", name="update_family_relationships",methods="POST")
+     * @Route("/update/{id}", name="update_family_relationships",methods="PUT")
      */
     public function update(Request $request, $id): JsonResponse
     {

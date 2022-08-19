@@ -82,7 +82,7 @@ class EmpFamiliesController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="update_family", methods="POST")
+     * @Route("/update/{id}", name="update_family", methods="PUT")
      */
     public function update(Request $request, $id): JsonResponse
     {

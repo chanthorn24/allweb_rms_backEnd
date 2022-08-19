@@ -80,7 +80,7 @@ class EmpDepartmentController extends AbstractController
     }
 
     /**
-     * @Route("/department/update/{id}", name="update_department", methods="POST")
+     * @Route("/department/update/{id}", name="update_department", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

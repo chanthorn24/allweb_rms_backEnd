@@ -72,7 +72,7 @@ class SchoolDegreesController extends AbstractController
     }
 
     /**
-     * @Route ("/update/{id}", name="update_school_degree", methods="POST")
+     * @Route ("/update/{id}", name="update_school_degree", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

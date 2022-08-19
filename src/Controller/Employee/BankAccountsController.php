@@ -80,7 +80,7 @@ class BankAccountsController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="update_bank_account_info", methods="POST")
+     * @Route("/update/{id}", name="update_bank_account_info", methods="PUT")
      * @param Request $request
      * @param $id
      * @return JsonResponse

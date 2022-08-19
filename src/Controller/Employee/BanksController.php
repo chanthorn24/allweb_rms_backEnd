@@ -60,7 +60,7 @@ class BanksController extends AbstractController
         }
     }
     /**
-     * @Route("/update/{id}", name="update_banks", methods="POST")
+     * @Route("/update/{id}", name="update_banks", methods="PUT")
      */
     public function update(Request $request, $id): JsonResponse
     {

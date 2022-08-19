@@ -33,7 +33,7 @@ class UserController extends AbstractController
         try {
             $users = $this->em->getRepository(Users::class)->findAll();
             if(!$users) {
-                return $this->json(array("success" => false, "message" => "no data found"), 500);
+                return $this->json(array("success" => false, "message" => "no data found"), 400);
             }
 
             $result = [];
@@ -269,14 +269,14 @@ class UserController extends AbstractController
 
         $user = $this->em->getRepository(Users::class)->findOneBy(array("email" => $email));
         if(!$user) {
-            return $this->json(array("success" => false, "message" => "No data has found"), 500);
+            return $this->json(array("success" => false, "message" => "No data has found"), 400);
         }
 
         if ($passwordHasher->isPasswordValid($user, $password)) {
             $token = $JWTToken->create($user);
-            return $this->json(array("success" => true, "message" => "Log in successfully", "token" => $token));
+            return $this->json(array("success" => true, "message" => "Log in successfully", "token" => $token), 200);
         }
-        return $this->json(array("success" => false, "message" => "Email or password is incorrect"));
+        return $this->json(array("success" => false, "message" => "Email or password is incorrect"), 400);
     }
 
     /**
@@ -292,7 +292,7 @@ class UserController extends AbstractController
         try {
             $user = $this->em->getRepository(Users::class)->find($id);
             if(!$user) {
-                return $this->json(array("success" => false, "message" => "No data has found"), 500);
+                return $this->json(array("success" => false, "message" => "No data has found"), 400);
             }
 
             if(isset($param['firstName'])) {

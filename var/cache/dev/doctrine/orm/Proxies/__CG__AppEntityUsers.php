@@ -67,10 +67,10 @@ class Users extends \App\Entity\Users implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'first_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'last_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'email', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'date_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'place_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'phone', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'salary', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'image_url', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'gender', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'nationality', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'religion', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'address', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_married', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'join_date', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'created', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'modified', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_department', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'user_role', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_position', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'bank_account', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empFamilies'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'first_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'last_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'email', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'date_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'place_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'phone', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'salary', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'image_url', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'gender', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'nationality', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'religion', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'address', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_married', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'join_date', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'created', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'modified', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_department', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'user_role', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_position', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'bank_account', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empFamilies', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'user_education_degree', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empLeaves', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empAttendances'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'first_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'last_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'email', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'date_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'place_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'phone', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'salary', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'image_url', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'gender', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'nationality', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'religion', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'address', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_married', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'join_date', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'created', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'modified', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_department', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'user_role', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_position', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'bank_account', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empFamilies'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'first_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'last_name', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'email', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'date_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'place_of_birth', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'phone', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'salary', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'image_url', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'gender', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'nationality', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'religion', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'address', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_married', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'password', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'join_date', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'created', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'modified', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_department', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'user_role', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'emp_position', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'bank_account', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empFamilies', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'user_education_degree', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empLeaves', '' . "\0" . 'App\\Entity\\Users' . "\0" . 'empAttendances'];
     }
 
     /**
@@ -762,6 +762,94 @@ class Users extends \App\Entity\Users implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeEmpFamily', [$empFamily]);
 
         return parent::removeEmpFamily($empFamily);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserEducationDegree(): ?\App\Entity\UserEducationDegrees
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserEducationDegree', []);
+
+        return parent::getUserEducationDegree();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserEducationDegree(?\App\Entity\UserEducationDegrees $user_education_degree): \App\Entity\Users
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserEducationDegree', [$user_education_degree]);
+
+        return parent::setUserEducationDegree($user_education_degree);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEmpLeaves(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmpLeaves', []);
+
+        return parent::getEmpLeaves();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addEmpLeaf(\App\Entity\EmpLeaves $empLeaf): \App\Entity\Users
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addEmpLeaf', [$empLeaf]);
+
+        return parent::addEmpLeaf($empLeaf);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeEmpLeaf(\App\Entity\EmpLeaves $empLeaf): \App\Entity\Users
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeEmpLeaf', [$empLeaf]);
+
+        return parent::removeEmpLeaf($empLeaf);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getEmpAttendances(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmpAttendances', []);
+
+        return parent::getEmpAttendances();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addEmpAttendance(\App\Entity\EmpAttendances $empAttendance): \App\Entity\Users
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addEmpAttendance', [$empAttendance]);
+
+        return parent::addEmpAttendance($empAttendance);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeEmpAttendance(\App\Entity\EmpAttendances $empAttendance): \App\Entity\Users
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeEmpAttendance', [$empAttendance]);
+
+        return parent::removeEmpAttendance($empAttendance);
     }
 
 }

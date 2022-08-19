@@ -143,9 +143,21 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $user_education_degree;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EmpLeaves::class, mappedBy="employee")
+     */
+    private $empLeaves;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EmpAttendances::class, mappedBy="employee")
+     */
+    private $empAttendances;
+
     public function __construct()
     {
         $this->empFamilies = new ArrayCollection();
+        $this->empLeaves = new ArrayCollection();
+        $this->empAttendances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -481,6 +493,66 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserEducationDegree(?UserEducationDegrees $user_education_degree): self
     {
         $this->user_education_degree = $user_education_degree;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmpLeaves>
+     */
+    public function getEmpLeaves(): Collection
+    {
+        return $this->empLeaves;
+    }
+
+    public function addEmpLeaf(EmpLeaves $empLeaf): self
+    {
+        if (!$this->empLeaves->contains($empLeaf)) {
+            $this->empLeaves[] = $empLeaf;
+            $empLeaf->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmpLeaf(EmpLeaves $empLeaf): self
+    {
+        if ($this->empLeaves->removeElement($empLeaf)) {
+            // set the owning side to null (unless already changed)
+            if ($empLeaf->getEmployee() === $this) {
+                $empLeaf->setEmployee(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmpAttendances>
+     */
+    public function getEmpAttendances(): Collection
+    {
+        return $this->empAttendances;
+    }
+
+    public function addEmpAttendance(EmpAttendances $empAttendance): self
+    {
+        if (!$this->empAttendances->contains($empAttendance)) {
+            $this->empAttendances[] = $empAttendance;
+            $empAttendance->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmpAttendance(EmpAttendances $empAttendance): self
+    {
+        if ($this->empAttendances->removeElement($empAttendance)) {
+            // set the owning side to null (unless already changed)
+            if ($empAttendance->getEmployee() === $this) {
+                $empAttendance->setEmployee(null);
+            }
+        }
 
         return $this;
     }

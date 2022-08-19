@@ -4,7 +4,7 @@ namespace App\Controller\EmployeeLeave;
 
 use App\Entity\EmpLeaveReasons;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Exception\RuntimeException;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,10 +29,11 @@ class EmpLeaveReasonsController extends AbstractController
         try {
             $leaveTypes = $this->em->getRepository(EmpLeaveReasons::class)->findAll();
 
-            if($leaveTypes) {
+            if(!$leaveTypes) {
                 throw new RuntimeException("No data found");
             }
 
+            $res = [];
             foreach ($leaveTypes as $leave) {
                 if(!$leave->getIsDelete()) {
                     $res[] = [
@@ -109,6 +110,9 @@ class EmpLeaveReasonsController extends AbstractController
     {
         try {
             $leave_reason = $this->em->getRepository(EmpLeaveReasons::class)->find($id);
+            if(!$leave_reason) {
+                throw new RuntimeException("No data has found!");
+            }
 
             $leave_reason->setIsDelete(true);
 

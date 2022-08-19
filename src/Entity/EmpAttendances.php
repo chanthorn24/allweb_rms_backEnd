@@ -22,6 +22,16 @@ class EmpAttendances
      */
     private $is_delete;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=EmpAttendanceTypes::class, inversedBy="empAttendances")
+     */
+    private $emp_attendance_type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="empAttendances")
+     */
+    private $employee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +45,30 @@ class EmpAttendances
     public function setIsDelete(bool $is_delete): self
     {
         $this->is_delete = $is_delete;
+
+        return $this;
+    }
+
+    public function getEmpAttendanceType(): ?EmpAttendanceTypes
+    {
+        return $this->emp_attendance_type;
+    }
+
+    public function setEmpAttendanceType(?EmpAttendanceTypes $emp_attendance_type): self
+    {
+        $this->emp_attendance_type = $emp_attendance_type;
+
+        return $this;
+    }
+
+    public function getEmployee(): ?Users
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?Users $employee): self
+    {
+        $this->employee = $employee;
 
         return $this;
     }

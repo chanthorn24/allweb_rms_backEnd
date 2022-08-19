@@ -1,0 +1,22 @@
+<?php //App%255CEntity%255CEmpLeaveReasons%2524empLeaves
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (\Symfony\Component\VarExporter\Internal\Registry::$prototypes['Doctrine\\ORM\\Mapping\\OneToMany'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\OneToMany')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'mappedBy' => [
+                'emp_leave_reason',
+            ],
+            'targetEntity' => [
+                'App\\Entity\\EmpLeaves',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+    ],
+    []
+); }];

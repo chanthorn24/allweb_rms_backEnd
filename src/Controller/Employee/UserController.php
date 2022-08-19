@@ -9,14 +9,16 @@ use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class UserController extends AbstractController
 {
-    private $em;
+    private EntityManagerInterface $em;
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
@@ -34,6 +36,7 @@ class UserController extends AbstractController
                 return $this->json(array("success" => false, "message" => "no data found"), 500);
             }
 
+            $result = [];
             foreach ($users as $user) {
                 $emp_family = [];
                 foreach ($user->getEmpFamilies() as $family) {
@@ -61,42 +64,131 @@ class UserController extends AbstractController
                         "is_married" => (boolean)$user->getIsMarried(),
                         "joinDate" => $user->getJoinDate(),
                         "isDelete" => (boolean)$user->getIsDelete(),
-                        "department" => $user->getEmpDepartment()->getName(),
-                        "role" => $user->getUserRole()->getName(),
                         "family" => $emp_family,
                     ];
 
                     //default if null
                     $res2 = [
+                        "department" => null,
+                    ];
+                    if($user->getEmpDepartment()) {
+                        $res2 = [
+                            "department" => $user->getEmpDepartment()->getName(),
+                        ];
+                    }
+                    $res3 = [
+                        "role" => null,
+                    ];
+                    if($user->getUserRole()) {
+                        $res3 = [
+                            "role" => $user->getUserRole()->getName(),
+                        ];
+                    }
+                    $res4 = [
                         "bank_name" => null,
                         "bank_no" => null,
                         "bank" => null
                     ];
                     if($user->getBankAccount()) {
-                        $res2 = [
+                        $res4 = [
                             "bank_name" => $user->getBankAccount()->getName(),
                             "bank_no" => $user->getBankAccount()->getNumber(),
                             "bank" => $user->getBankAccount()->getBank()->getName(),
                         ];
                     }
 
-                    $res3 = [
+                    $res5 = [
                         "school" => null,
                         "degree" => null,
                     ];
                     if($user->getUserEducationDegree()) {
-                        $res3 = [
+                        $res5 = [
                             "school" => $user->getUserEducationDegree()->getSchool(),
                             "degree" => $user->getUserEducationDegree()->getSchoolDegree()->getName(),
                         ];
                     }
 
                     //combine objects
-                    $result[] = $res + $res2 + $res3;
+                    $result[] = $res + $res2 + $res3 + $res4 + $res5;
                 }
             }
 
             return $this->json(array("success" => true, "data" => $result), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route ("/user/leave", name="get_leave_user", methods="GET")
+     */
+    public function getLeave(): JsonResponse
+    {
+        try {
+            $emp_leaves = $this->em->getRepository(Users::class)->findAll();
+            if(!$emp_leaves) {
+                throw new RuntimeException("No data has found!");
+            }
+
+            $res = [];
+            foreach ($emp_leaves as $emp_leave) {
+                if(!$emp_leave->getIsDelete()) {
+                    $leaveCollection = [];
+                    foreach ($emp_leave->getEmpLeaves() as $leave) {
+                        $leaveCollection[] = [
+                            "description" => $leave->getDescription(),
+                            "start" => $leave->getStart(),
+                            "end" => $leave->getEnd(),
+                            "reason" => $leave->getEmpLeaveReason()->getName(),
+                        ];
+                    }
+
+                    $res[] = [
+                        "employee_id" => $emp_leave->getId(),
+                        "firstName" => $emp_leave->getFirstName(),
+                        "lastName" => $emp_leave->getLastName(),
+                        "leaves" => $leaveCollection,
+                    ];
+                }
+            }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route ("/user/attendance", name="get_attendance_user", methods="GET")
+     */
+    public function getAttendance(): JsonResponse
+    {
+        try {
+            $emp_attendances = $this->em->getRepository(Users::class)->findAll();
+            if(!$emp_attendances) {
+                throw new RuntimeException("No data has found!");
+            }
+
+            $res = [];
+            foreach ($emp_attendances as $emp_attendance) {
+                if(!$emp_attendance->getIsDelete()) {
+                    $attendanceCollection = [];
+                    foreach ($emp_attendance->getEmpAttendances() as $attendance) {
+                        $attendanceCollection[] = [
+                            "attendanceType" => $attendance->getEmpAttendanceType()->getName(),
+                        ];
+                    }
+
+                    $res[] = [
+                        "employee_id" => $emp_attendance->getId(),
+                        "firstName" => $emp_attendance->getFirstName(),
+                        "lastName" => $emp_attendance->getLastName(),
+                        "leaves" => $attendanceCollection,
+                    ];
+                }
+            }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }
@@ -166,6 +258,7 @@ class UserController extends AbstractController
      * @Route("/api/login", name="login_user", methods="POST")
      * @param Request $request
      * @param UserPasswordHasherInterface $passwordHasher
+     * @param JWTTokenManagerInterface $JWTToken
      * @return JsonResponse
      */
     public function login(Request $request, UserPasswordHasherInterface $passwordHasher, JWTTokenManagerInterface $JWTToken): JsonResponse

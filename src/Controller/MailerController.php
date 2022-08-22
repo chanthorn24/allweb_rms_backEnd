@@ -65,7 +65,7 @@ class MailerController extends AbstractController
         ';
 
         $email = (new Email())
-            ->from('lychanthorn2000@gmail.com')
+            ->from('allweb.rms.symfony@gmail.com')
             ->to($param['email'])
             ->subject('Reset your Allweb RMS account password')
             ->html($htmlAsText);

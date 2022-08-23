@@ -104,9 +104,10 @@ return [
                     .'|attendance(*:843)'
                     .'|create(*:857)'
                     .'|update/([^/]++)(*:880)'
+                    .'|password(*:896)'
                 .')'
-                .'|/api/user/delete/([^/]++)(*:914)'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:950)'
+                .'|/api/user/delete/([^/]++)(*:930)'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:966)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -144,8 +145,9 @@ return [
         843 => [[['_route' => 'get_attendance_user', '_controller' => 'App\\Controller\\Employee\\UserController::getAttendance'], [], ['GET' => 0], null, false, false, null]],
         857 => [[['_route' => 'create_user', '_controller' => 'App\\Controller\\Employee\\UserController::create'], [], ['POST' => 0], null, false, false, null]],
         880 => [[['_route' => 'update_user', '_controller' => 'App\\Controller\\Employee\\UserController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        914 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\Employee\\UserController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        950 => [
+        896 => [[['_route' => 'change_pw_user', '_controller' => 'App\\Controller\\ResetPasswordController::changePassword'], [], ['PUT' => 0], null, false, false, null]],
+        930 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\Employee\\UserController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        966 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

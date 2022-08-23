@@ -10,6 +10,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ResetPasswordController extends AbstractController
@@ -39,6 +40,36 @@ class ResetPasswordController extends AbstractController
             return $this->json(array('success'=>true, 'message'=> "Changed successfully", "token" => $token),200);
         }catch (\Exception $err){
             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route ("/user/password", name="change_pw_user", methods="PUT")
+     * @param $id
+     * @param Request $request
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return JsonResponse
+     */
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $param = json_decode($request->getContent(), true);
+        try {
+            $user = $this->em->getRepository(Users::class)->findOneBy(array("email" => $param['email']));
+            if(!$user) {
+                throw new RuntimeException("User not found");
+            }
+
+            if ($passwordHasher->isPasswordValid($user, $param['old_password'])) {
+                $hashedPassword = $passwordHasher->hashPassword($user,$param['new_password']);
+                $user->setPassword($hashedPassword);
+
+                //save data to database
+                $this->em->flush();
+                return $this->json(array("success" => true, "message" => "Update password successfully"), 200);
+            }
+            return $this->json(array("success" => false, "message" => "Old password is incorrect"), 400);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }
     }
 }

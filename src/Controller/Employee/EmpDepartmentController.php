@@ -37,8 +37,8 @@ class EmpDepartmentController extends AbstractController
                 if(!$depart->getIsDelete()) {
                     foreach ($depart->getUsers() as  $user) {
                         $users[] = [
-                          "firstName" => $user->getFirstName(),
-                          "lastName" => $user->getLastName()
+                            "firstName" => $user->getFirstName(),
+                            "lastName" => $user->getLastName()
                         ];
                     }
                     $res[] = [
@@ -47,6 +47,33 @@ class EmpDepartmentController extends AbstractController
                         "users" => $users
                     ];
                 }
+            }
+            return $this->json(array("success" => true, "data" => $res), 200);
+
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/department/{id}", name="one_department", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getOne($id): JsonResponse
+    {
+        try {
+            $department = $this->em->getRepository(EmpDepartments::class)->find($id);
+            if(!$department) {
+                throw new \RuntimeException("No data has found");
+            }
+
+            $res = [];
+            if(!$department->getIsDelete()) {
+                $res[] = [
+                    "id" => $department->getId(),
+                    "name" => $department->getName(),
+                ];
             }
             return $this->json(array("success" => true, "data" => $res), 200);
 

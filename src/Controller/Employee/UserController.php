@@ -113,9 +113,17 @@ class UserController extends AbstractController
                             "degree" => $user->getUserEducationDegree()->getSchoolDegree()->getName(),
                         ];
                     }
+                    $res6 = [
+                        "position" => null,
+                    ];
+                    if($user->getEmpPosition()) {
+                        $res6 = [
+                            "position" => $user->getEmpPosition()->getName(),
+                        ];
+                    }
 
                     //combine objects
-                    $result[] = $res + $res2 + $res3 + $res4 + $res5;
+                    $result[] = $res + $res2 + $res3 + $res4 + $res5 + $res6;
                 }
             }
 
@@ -139,6 +147,7 @@ class UserController extends AbstractController
             }
 
             $result = [];
+            $emp_family = [];
             foreach ($user->getEmpFamilies() as $family) {
                 $emp_family[] = [
                     "name" => $family->getName(),
@@ -207,9 +216,18 @@ class UserController extends AbstractController
                         "degree" => $user->getUserEducationDegree()->getSchoolDegree()->getName(),
                     ];
                 }
+                $res6 = [
+                    "position" => null,
+                ];
+                if($user->getEmpPosition()) {
+                    $res6 = [
+                        "position" => $user->getEmpPosition()->getName(),
+                    ];
+                }
+
 
                 //combine objects
-                $result[] = $res + $res2 + $res3 + $res4 + $res5;
+                $result[] = $res + $res2 + $res3 + $res4 + $res5 + $res6;
             }
 
             return $this->json(array("success" => true, "data" => $result), 200);

@@ -46,7 +46,7 @@ class EmpPositionsController extends AbstractController
                     ];
                 }
             }
-            return $this->json(array("success"=>true, "message"=> $res),200);
+            return $this->json(array("success"=>true, "data"=> $res),200);
 
         }
         catch (\Exception $error) {

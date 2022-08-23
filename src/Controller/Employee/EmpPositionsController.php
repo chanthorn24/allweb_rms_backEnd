@@ -53,6 +53,30 @@ class EmpPositionsController extends AbstractController
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }
     }
+    /**
+     * @Route("/{id}", name="get_one_position", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getOnePosition($id): JsonResponse
+    {
+        try{
+            $pos= $this->em->getRepository(EmpPositions::class)->find($id);
+            if(!$pos){
+                throw new RuntimeException('No data is found');
+            }
+           if(!$pos->getIsDelete()){
+               $res[] = [
+                   "id"=>$pos->getId(),
+                   "name"=>$pos->getName(),
+               ];
+           }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+        }catch(\Exception $exp){
+            return $this->json(array("success" => false, "data" => $exp->getMessage()), 400);
+        }
+    }
 
     /**
      * @Route("/create", name="create_positions", methods="POST")

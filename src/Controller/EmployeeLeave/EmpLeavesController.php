@@ -39,6 +39,7 @@ class EmpLeavesController extends AbstractController
             foreach ($leaves as $leave) {
                 if(!$leave->getIsDelete()) {
                     $res1 = [
+                        "id" => $leave->getId(),
                         "description" => $leave->getDescription(),
                         "start" => $leave->getStart(),
                         "end" => $leave->getEnd(),
@@ -89,7 +90,7 @@ class EmpLeavesController extends AbstractController
             //join table
             $leave_reason = $this->em->getRepository(EmpLeaveReasons::class)->find($param['emp_leave_reason_id']);
             $empLeave->setEmpLeaveReason($leave_reason);
-            $emp = $this->em->getRepository(Users::class)->find($param['employee_id']);
+            $emp = $this->em->getRepository(Users::class)->findOneBy(array("email" => $param['email']));
             $empLeave->setEmployee($emp);
 
             //save data to database

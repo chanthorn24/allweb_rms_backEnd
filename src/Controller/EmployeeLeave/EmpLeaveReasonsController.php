@@ -51,6 +51,37 @@ class EmpLeaveReasonsController extends AbstractController
     }
 
     /**
+     * @Route("/{id}", name="one_leave_reason", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getOne($id): JsonResponse
+    {
+        try {
+            $leaveTypes = $this->em->getRepository(EmpLeaveReasons::class)->find($id);
+
+            if(!$leaveTypes) {
+                throw new RuntimeException("No data found");
+            }
+
+            $res = [];
+
+                if(!$leaveTypes->getIsDelete()) {
+                    $res[] = [
+                        "id" => $leaveTypes->getId(),
+                        "name" => $leaveTypes->getName(),
+                        "is_delete" => $leaveTypes->getIsDelete(),
+                    ];
+                }
+
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $err) {
+            return $this->json(array("success" => false, "message" => $err->getMessage()), 400);
+        }
+    }
+
+    /**
      * @Route("/create", name="create_leave_reasons", methods="POST")
      * @param Request $request
      * @return JsonResponse

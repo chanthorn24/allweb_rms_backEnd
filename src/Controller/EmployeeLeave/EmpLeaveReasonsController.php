@@ -37,6 +37,7 @@ class EmpLeaveReasonsController extends AbstractController
             foreach ($leaveTypes as $leave) {
                 if(!$leave->getIsDelete()) {
                     $res[] = [
+                        "id" => $leave->getId(),
                         "name" => $leave->getName(),
                         "is_delete" => $leave->getIsDelete(),
                     ];
@@ -74,7 +75,7 @@ class EmpLeaveReasonsController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="update_leave_reason", methods="POST")
+     * @Route("/update/{id}", name="update_leave_reason", methods= "PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

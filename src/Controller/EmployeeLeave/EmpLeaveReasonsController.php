@@ -37,11 +37,43 @@ class EmpLeaveReasonsController extends AbstractController
             foreach ($leaveTypes as $leave) {
                 if(!$leave->getIsDelete()) {
                     $res[] = [
+                        "id" => $leave->getId(),
                         "name" => $leave->getName(),
                         "is_delete" => $leave->getIsDelete(),
                     ];
                 }
              }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $err) {
+            return $this->json(array("success" => false, "message" => $err->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/{id}", name="one_leave_reason", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getOne($id): JsonResponse
+    {
+        try {
+            $leaveTypes = $this->em->getRepository(EmpLeaveReasons::class)->find($id);
+
+            if(!$leaveTypes) {
+                throw new RuntimeException("No data found");
+            }
+
+            $res = [];
+
+                if(!$leaveTypes->getIsDelete()) {
+                    $res[] = [
+                        "id" => $leaveTypes->getId(),
+                        "name" => $leaveTypes->getName(),
+                        "is_delete" => $leaveTypes->getIsDelete(),
+                    ];
+                }
+
 
             return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $err) {
@@ -74,7 +106,7 @@ class EmpLeaveReasonsController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="update_leave_reason", methods="POST")
+     * @Route("/update/{id}", name="update_leave_reason", methods= "PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

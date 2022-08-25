@@ -200,12 +200,12 @@ class UserController extends AbstractController
                 ];
                 if($user->getBankAccount()) {
                     $res4 = [
+                        "bank_id" => $user->getBankAccount()->getBank()->getId(),
                         "bank_name" => $user->getBankAccount()->getName(),
                         "bank_no" => $user->getBankAccount()->getNumber(),
                         "bank" => $user->getBankAccount()->getBank()->getName(),
                     ];
                 }
-
                 $res5 = [
                     "school" => null,
                     "degree" => null,

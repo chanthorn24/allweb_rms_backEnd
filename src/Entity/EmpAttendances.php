@@ -32,6 +32,16 @@ class EmpAttendances
      */
     private $employee;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class EmpAttendances
     public function setEmployee(?Users $employee): self
     {
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

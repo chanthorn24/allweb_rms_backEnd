@@ -51,6 +51,7 @@ class EmpLeavesController extends AbstractController
                     if($leave->getEmpLeaveReason()) {
                         $res2 = [
                             "leave_reason" => $leave->getEmpLeaveReason()->getName(),
+                            "emp_leave_reason_id" => $leave->getEmpLeaveReason()->getId(),
                         ];
                     }
                     $res3 = [
@@ -58,12 +59,66 @@ class EmpLeavesController extends AbstractController
                     ];
                     if($leave->getEmployee()) {
                         $res3 = [
-                            "employee" => $leave->getEmployee()->getLastName(),
+                            "firstName" => $leave->getEmployee()->getFirstName(),
+                            "lastName" => $leave->getEmployee()->getLastName(),
+                            "user_id" => $leave->getEmployee()->getId(),
+                            "email" => $leave->getEmployee()->getEmail(),
                         ];
                     }
 
                     $res[] = $res1 + $res2 + $res3;
                 }
+            }
+            return $this->json(array("success" => true, "data" => $res),200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/{id}", name="email_employee_leave", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getOne($id): JsonResponse
+    {
+        try {
+            $leave = $this->em->getRepository(EmpLeaves::class)->find($id);
+            if(!$leave) {
+                throw new RuntimeException("No data has found");
+            }
+
+            $res = [];
+            if(!$leave->getIsDelete()) {
+                $res1 = [
+                    "id" => $leave->getId(),
+                    "description" => $leave->getDescription(),
+                    "start" => $leave->getStart(),
+                    "end" => $leave->getEnd(),
+                    "is_delete" => $leave->getIsDelete(),
+                ];
+                $res2 = [
+                    "leave_reason" => null,
+                ];
+                if($leave->getEmpLeaveReason()) {
+                    $res2 = [
+                        "leave_reason" => $leave->getEmpLeaveReason()->getName(),
+                        "emp_leave_reason_id" => $leave->getEmpLeaveReason()->getId(),
+                    ];
+                }
+                $res3 = [
+                    "employee" => null
+                ];
+                if($leave->getEmployee()) {
+                    $res3 = [
+                        "firstName" => $leave->getEmployee()->getFirstName(),
+                        "lastName" => $leave->getEmployee()->getLastName(),
+                        "user_id" => $leave->getEmployee()->getId(),
+                        "email" => $leave->getEmployee()->getEmail(),
+                    ];
+                }
+
+                $res[] = $res1 + $res2 + $res3;
             }
             return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {
@@ -104,7 +159,7 @@ class EmpLeavesController extends AbstractController
     }
 
     /**
-     * @Route ("/update/{id}", name="update_employee_leave", methods="POST")
+     * @Route ("/update/{id}", name="update_employee_leave", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

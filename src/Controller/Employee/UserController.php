@@ -237,6 +237,48 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/user/by-email", name="email_user", methods="GET")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getOnlyUser(Request $request): JsonResponse
+    {
+        $param = json_decode($request->getContent(), true);
+        try {
+            $user = $this->em->getRepository(Users::class)->findOneBy(array("email" => $param['email']));
+            if(!$user) {
+                return $this->json(array("success" => false, "message" => "no data found"), 400);
+            }
+
+            $result = [];
+            if(!$user->getIsDelete()) {
+                $res = [
+                    "id" => $user->getId(),
+                    "firstName" => $user->getFirstName(),
+                    "lastName" => $user->getLastName(),
+                    "email" => $user->getEmail(),
+                ];
+
+                $res3 = [
+                    "role" => null,
+                ];
+                if($user->getUserRole()) {
+                    $res3 = [
+                        "role" => $user->getUserRole()->getName(),
+                    ];
+                }
+
+                //combine objects
+                $result[] = $res + $res3;
+            }
+
+            return $this->json(array("success" => true, "data" => $result), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
      * @Route ("/user/leave", name="get_leave_user", methods="GET")
      */
     public function getLeave(): JsonResponse

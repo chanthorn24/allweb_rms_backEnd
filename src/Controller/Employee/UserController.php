@@ -237,15 +237,14 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/by-email", name="email_user", methods="GET")
-     * @param Request $request
+     * @Route("/user/by-email/{email}", name="email_one_user", methods="GET")
+     * @param $email
      * @return JsonResponse
      */
-    public function getOnlyUser(Request $request): JsonResponse
+    public function getOnlyUser($email): JsonResponse
     {
-        $param = json_decode($request->getContent(), true);
         try {
-            $user = $this->em->getRepository(Users::class)->findOneBy(array("email" => $param['email']));
+            $user = $this->em->getRepository(Users::class)->findOneBy(array("email" => $email));
             if(!$user) {
                 return $this->json(array("success" => false, "message" => "no data found"), 400);
             }

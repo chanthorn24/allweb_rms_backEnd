@@ -76,7 +76,7 @@ class EmpLeavesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="email_employee_leave", methods="GET")
+     * @Route("/{id}", name="getone_employee_leave", methods="GET")
      * @param $id
      * @return JsonResponse
      */
@@ -119,6 +119,59 @@ class EmpLeavesController extends AbstractController
                 }
 
                 $res[] = $res1 + $res2 + $res3;
+            }
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/user/{user_id}", name="email_employee_leave", methods="GET")
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function getByUser($user_id): JsonResponse
+    {
+        try {
+            $leaves = $this->em->getRepository(EmpLeaves::class)->findBy(array("employee" => $user_id));
+
+            $res = [];
+            foreach ($leaves as $leave) {
+                if(!$leave->getIsDelete()) {
+                    $res1 = [
+                        "id" => $leave->getId(),
+                        "description" => $leave->getDescription(),
+                        "start" => $leave->getStart(),
+                        "end" => $leave->getEnd(),
+                        "is_delete" => $leave->getIsDelete(),
+                    ];
+                    $res2 = [
+                        "leave_reason" => null,
+                    ];
+                    if($leave->getEmpLeaveReason()) {
+                        $res2 = [
+                            "leave_reason" => $leave->getEmpLeaveReason()->getName(),
+                            "emp_leave_reason_id" => $leave->getEmpLeaveReason()->getId(),
+                        ];
+                    }
+                    $res3 = [
+                        "employee" => null
+                    ];
+                    if($leave->getEmployee()) {
+                        $res3 = [
+                            "firstName" => $leave->getEmployee()->getFirstName(),
+                            "lastName" => $leave->getEmployee()->getLastName(),
+                            "user_id" => $leave->getEmployee()->getId(),
+                            "email" => $leave->getEmployee()->getEmail(),
+                        ];
+                    }
+
+                    $res[] = $res1 + $res2 + $res3;
+                }
+            }
+            if($res === []) {
+                throw new RuntimeException("No data has found");
             }
             return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {

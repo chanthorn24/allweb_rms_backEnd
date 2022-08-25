@@ -1,4 +1,4 @@
-<?php //App%255CController%255CEmployee%255CUserController%2523getOnlyUser
+<?php //App%255CController%255CEmployeeLeave%255CEmpLeavesController%2523getByUser
 
 return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
     $o = [
@@ -8,10 +8,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
     [
         'Symfony\\Component\\Routing\\Annotation\\Route' => [
             'path' => [
-                '/user/by-email/{email}',
+                '/user/{user_id}',
             ],
             'name' => [
-                'email_one_user',
+                'email_employee_leave',
             ],
             'methods' => [
                 [

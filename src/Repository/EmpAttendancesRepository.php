@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\EmpAttendances;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * @extends ServiceEntityRepository<EmpAttendances>
@@ -63,18 +62,28 @@ class EmpAttendancesRepository extends ServiceEntityRepository
 //    }
 
     /**
+     * @param $date
+     * @param $user_id
      * @return EmpAttendances[] Returns an array of EmpAttendances objects
      */
-    public function findByExampleField(): array
+    public function getDailyEmpAttendance($date, $user_id): array
     {
-        return $this->createQueryBuilder('e')
-            ->select('e')
-            ->where($this->createQueryBuilder('e')->expr()->like('e.created', '?2022'))
-            ->orderBy('', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->select('e')
+            ->from(EmpAttendances::class, 'e')
+            ->where('e.created LIKE :date')
+            ->andWhere('e.employee = :user_id')
+            ->setMaxResults(4)
+            ->setParameter('date', $date)
+            ->setParameter('user_id', $user_id)
+            ->orderBy('e.emp_attendance_type', 'ASC')
         ;
+
+        //ASC
+        //DESC
+
+        return $qb->getQuery()->getResult();
     }
 
 //    public function findOneBySomeField($value): ?EmpAttendances

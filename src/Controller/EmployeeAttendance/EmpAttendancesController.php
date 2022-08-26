@@ -82,35 +82,41 @@ class EmpAttendancesController extends AbstractController
             $date_time = new \DateTime();
 //            $get_attendanceToday = $this->em->getRepository(EmpAttendances::class)->findBy(array("employee" => $id));
             $date = $date_time->format('Y-m-d');
-            $get_attendanceToday = $this->em->getRepository(EmpAttendances::class)->findByExampleField();
+            $data = (string)'%'.$date.'%';
+            $get_attendanceToday = $this->em->getRepository(EmpAttendances::class)->getDailyEmpAttendance($data, $id);
+
+            $click = 1;
 
             $format_time = $date_time->format('H:i:s');
+            $attendance_type = "";
             if($format_time > "17:30:00") {
-                $attendance_type = 4;
+                $attendance_type = '4';
             }else if ($format_time > "13:30:00") {
-                $attendance_type = 3;
+                $attendance_type = '3';
             }else if ($format_time > "12:00:00") {
-                $attendance_type = 2;
+                $attendance_type = '2';
             }else if ($format_time > "06:30:00") {
-                $attendance_type = 1;
+                $attendance_type = '1';
             }
 
             $attendance = [];
             foreach ($get_attendanceToday as $att) {
                 if(!$att->getIsDelete()) {
                     $attendance[] = [
-                        "attendance_type" => $att->getEmpAttendanceType()->getName(),
-                        "employee" => $att->getEmployee()->getId(),
+                        "attendance_type" => $att->getEmpAttendanceType()->getId(),
                         "created" => $att->getCreated(),
                     ];
+                    if($attendance_type == $att->getEmpAttendanceType()->getId()) {
+                        $click = 0;
+                    }
                 }
             }
 
             $option = [
                 "date_time" => $format_time,
-                "click" => "1",
+                "click" => $click,
                 "attendance_type" => $attendance_type,
-                "Data" => $attendance,
+                "data" => $attendance,
             ];
 
             return $this->json(array("success" => true, "data" => $option), 200);
@@ -133,7 +139,7 @@ class EmpAttendancesController extends AbstractController
             $emp_attendance->setIsDelete(false);
 
             //join table
-            $attendance_type = $this->em->getRepository(EmpAttendanceTypes::class)->findOneBy($param['emp_attendance_type_id']);
+            $attendance_type = $this->em->getRepository(EmpAttendanceTypes::class)->find($param['emp_attendance_type_id']);
             $emp_attendance->setEmpAttendanceType($attendance_type);
             $emp = $this->em->getRepository(Users::class)->find($param['employee_id']);
             $emp_attendance->setEmployee($emp);

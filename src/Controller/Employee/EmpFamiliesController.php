@@ -34,15 +34,19 @@ class EmpFamiliesController extends AbstractController
             if (!$family) {
                 throw new RuntimeException("No data is found");
             }
+
             foreach ($family as $fam) {
                 $res[] = [
                     "id" => $fam->getId(),
                     "name" => $fam->getName(),
                     "phone" => $fam->getPhone(),
-                    "family_relationship" => $fam->getFamilyRelationship()->getName(),
-                    "employee_id" => $fam->getEmployee()->getId(),
+                    "family_relationship" => $fam->getFamilyRelationship()->getId(),
+                    "employee" => $fam->getEmployee()->getId(),
+//                    "employee_id" => $fam->getEmployee()->getId(),
                 ];
             }
+
+
             return $this->json(array("success" => true, "message" => $res), 200);
         } catch (\Exception $err) {
             return $this->json(array("success" => false, "message" => $err->getMessage()), 400);

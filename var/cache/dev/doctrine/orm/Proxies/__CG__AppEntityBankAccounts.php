@@ -217,7 +217,7 @@ class BankAccounts extends \App\Entity\BankAccounts implements \Doctrine\ORM\Pro
     /**
      * {@inheritDoc}
      */
-    public function getNumber(): ?int
+    public function getNumber(): ?string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNumber', []);
@@ -228,7 +228,7 @@ class BankAccounts extends \App\Entity\BankAccounts implements \Doctrine\ORM\Pro
     /**
      * {@inheritDoc}
      */
-    public function setNumber(int $number): \App\Entity\BankAccounts
+    public function setNumber(string $number): \App\Entity\BankAccounts
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNumber', [$number]);

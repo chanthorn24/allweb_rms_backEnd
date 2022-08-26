@@ -88,24 +88,31 @@ class BankAccountsController extends AbstractController
     public function update(Request $request, $id): JsonResponse
     {
         $param = json_decode($request->getContent(), true);
-
         try{
             $bankAccount = $this->em->getRepository(BankAccounts::class)->find($id);
             if(!$bankAccount){
                 throw new RuntimeException("No data is found");
             }
-            if(isset($param['name']) && isset($param['number'])){
+            if(isset($param['name'])){
                 $bankAccount->setName($param['name']);
+
+            }
+            if(isset($param['number'])){
                 $bankAccount->setNumber($param['number']);
             }
-
             if(isset($param['bank_id'])){
                 $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
-                $bankAccount->setName($bank);
+                $bankAccount->setBank($bank);
             }
 
+
+//            if(isset($param['bank_id'])){
+//                $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
+//                $bankAccount->setName($bank);
+//            }
+
             //update db
-            $this->em->flush($bankAccount);
+            $this->em->flush();
 
             return $this->json(array("success"=> true, "message"=> "Updated successfully"), 200);
         }catch (\Exception $err){

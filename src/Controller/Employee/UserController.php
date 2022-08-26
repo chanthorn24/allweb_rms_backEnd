@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\String\u;
 
 
 class UserController extends AbstractController
@@ -200,6 +201,7 @@ class UserController extends AbstractController
                 ];
                 if($user->getBankAccount()) {
                     $res4 = [
+                        "account_id"=> $user->getBankAccount()->getId(),
                         "bank_id" => $user->getBankAccount()->getBank()->getId(),
                         "bank_name" => $user->getBankAccount()->getName(),
                         "bank_no" => $user->getBankAccount()->getNumber(),
@@ -684,4 +686,7 @@ class UserController extends AbstractController
             return $this->json(array("success" => false, "message" => "email has already taken", "error" => $error->getMessage()), 400);
         }
     }
+
+
+
 }

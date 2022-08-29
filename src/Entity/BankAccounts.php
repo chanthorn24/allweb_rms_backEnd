@@ -27,10 +27,6 @@ class BankAccounts
      */
     private $number;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_delete;
 
     /**
      * @ORM\ManyToOne(targetEntity=Banks::class, inversedBy="bankAccounts")
@@ -41,6 +37,21 @@ class BankAccounts
      * @ORM\OneToOne(targetEntity=Users::class, mappedBy="bank_account", cascade={"persist", "remove"})
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_delete;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function getId(): ?int
     {
@@ -113,6 +124,30 @@ class BankAccounts
         }
 
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

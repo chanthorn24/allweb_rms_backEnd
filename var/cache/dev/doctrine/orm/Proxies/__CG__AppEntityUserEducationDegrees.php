@@ -67,10 +67,10 @@ class UserEducationDegrees extends \App\Entity\UserEducationDegrees implements \
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school_degree', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'users'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school_degree', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'users', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'created', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'modified'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school_degree', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'users'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'school_degree', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'users', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'created', '' . "\0" . 'App\\Entity\\UserEducationDegrees' . "\0" . 'modified'];
     }
 
     /**
@@ -278,6 +278,50 @@ class UserEducationDegrees extends \App\Entity\UserEducationDegrees implements \
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsers', [$users]);
 
         return parent::setUsers($users);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreated(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
+
+        return parent::getCreated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreated(?\DateTimeInterface $created): \App\Entity\UserEducationDegrees
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
+
+        return parent::setCreated($created);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModified(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModified', []);
+
+        return parent::getModified();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModified(?\DateTimeInterface $modified): \App\Entity\UserEducationDegrees
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModified', [$modified]);
+
+        return parent::setModified($modified);
     }
 
 }

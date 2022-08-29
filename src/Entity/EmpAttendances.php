@@ -18,11 +18,6 @@ class EmpAttendances
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_delete;
-
-    /**
      * @ORM\ManyToOne(targetEntity=EmpAttendanceTypes::class, inversedBy="empAttendances")
      */
     private $emp_attendance_type;
@@ -31,6 +26,11 @@ class EmpAttendances
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="empAttendances")
      */
     private $employee;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_delete;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)

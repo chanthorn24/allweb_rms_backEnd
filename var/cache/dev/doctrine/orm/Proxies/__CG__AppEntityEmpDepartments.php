@@ -67,10 +67,10 @@ class EmpDepartments extends \App\Entity\EmpDepartments implements \Doctrine\ORM
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'created', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'modified', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'users'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'users', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'created', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'modified'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'created', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'modified', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'users'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'users', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'created', '' . "\0" . 'App\\Entity\\EmpDepartments' . "\0" . 'modified'];
     }
 
     /**

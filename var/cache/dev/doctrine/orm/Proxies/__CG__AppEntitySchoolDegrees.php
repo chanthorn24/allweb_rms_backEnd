@@ -67,10 +67,10 @@ class SchoolDegrees extends \App\Entity\SchoolDegrees implements \Doctrine\ORM\P
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'name', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'userEducationDegrees'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'name', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'userEducationDegrees', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'created', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'modified'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'name', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'userEducationDegrees'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'id', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'name', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'userEducationDegrees', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'created', '' . "\0" . 'App\\Entity\\SchoolDegrees' . "\0" . 'modified'];
     }
 
     /**
@@ -267,6 +267,50 @@ class SchoolDegrees extends \App\Entity\SchoolDegrees implements \Doctrine\ORM\P
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeUserEducationDegree', [$userEducationDegree]);
 
         return parent::removeUserEducationDegree($userEducationDegree);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreated(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
+
+        return parent::getCreated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreated(?\DateTimeInterface $created): \App\Entity\SchoolDegrees
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
+
+        return parent::setCreated($created);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModified(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModified', []);
+
+        return parent::getModified();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModified(?\DateTimeInterface $modified): \App\Entity\SchoolDegrees
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModified', [$modified]);
+
+        return parent::setModified($modified);
     }
 
 }

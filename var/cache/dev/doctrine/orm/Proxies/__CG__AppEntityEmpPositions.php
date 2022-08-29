@@ -67,10 +67,10 @@ class EmpPositions extends \App\Entity\EmpPositions implements \Doctrine\ORM\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'users'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'users', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'created', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'modified'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'users'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'id', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'name', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'users', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'created', '' . "\0" . 'App\\Entity\\EmpPositions' . "\0" . 'modified'];
     }
 
     /**
@@ -267,6 +267,50 @@ class EmpPositions extends \App\Entity\EmpPositions implements \Doctrine\ORM\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeUser', [$user]);
 
         return parent::removeUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreated(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
+
+        return parent::getCreated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreated(?\DateTimeInterface $created): \App\Entity\EmpPositions
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
+
+        return parent::setCreated($created);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModified(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModified', []);
+
+        return parent::getModified();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModified(?\DateTimeInterface $modified): \App\Entity\EmpPositions
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModified', [$modified]);
+
+        return parent::setModified($modified);
     }
 
 }

@@ -616,7 +616,7 @@ class UserController extends AbstractController
             $password = "12345";
             $repeat_password = "12345";
 
-            $user->setFirstName("1");
+            $user->setFirstName("Admin");
             $user->setLastName("Admin");
             $user->setEmail("allweb.rms.symfony@gmail.com");
 

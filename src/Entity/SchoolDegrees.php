@@ -25,14 +25,24 @@ class SchoolDegrees
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity=UserEducationDegrees::class, mappedBy="school_degree")
+     */
+    private $userEducationDegrees;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserEducationDegrees::class, mappedBy="school_degree")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $userEducationDegrees;
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function __construct()
     {
@@ -94,6 +104,30 @@ class SchoolDegrees
                 $userEducationDegree->setSchoolDegree(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

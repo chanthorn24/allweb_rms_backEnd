@@ -25,14 +25,24 @@ class EmpLeaveReasons
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity=EmpLeaves::class, mappedBy="emp_leave_reason")
+     */
+    private $empLeaves;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=EmpLeaves::class, mappedBy="emp_leave_reason")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $empLeaves;
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function __construct()
     {
@@ -94,6 +104,30 @@ class EmpLeaveReasons
                 $empLeaf->setEmpLeaveReason(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

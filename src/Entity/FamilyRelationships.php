@@ -25,14 +25,24 @@ class FamilyRelationships
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity=EmpFamilies::class, mappedBy="family_relationship")
+     */
+    private $empFamilies;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=EmpFamilies::class, mappedBy="family_relationship")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $empFamilies;
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function __construct()
     {
@@ -94,6 +104,30 @@ class FamilyRelationships
                 $empFamily->setFamilyRelationship(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

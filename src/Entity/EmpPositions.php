@@ -25,14 +25,24 @@ class EmpPositions
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="emp_position")
+     */
+    private $users;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="emp_position")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $users;
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function __construct()
     {
@@ -94,6 +104,30 @@ class EmpPositions
                 $user->setEmpPosition(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

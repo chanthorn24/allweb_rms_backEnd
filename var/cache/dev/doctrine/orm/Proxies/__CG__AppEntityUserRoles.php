@@ -67,10 +67,10 @@ class UserRoles extends \App\Entity\UserRoles implements \Doctrine\ORM\Proxy\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'name', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'users'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'name', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'users', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'created', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'modified'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'name', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'users'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'id', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'name', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'users', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'is_delete', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'created', '' . "\0" . 'App\\Entity\\UserRoles' . "\0" . 'modified'];
     }
 
     /**
@@ -245,6 +245,72 @@ class UserRoles extends \App\Entity\UserRoles implements \Doctrine\ORM\Proxy\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeUser', [$user]);
 
         return parent::removeUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreated(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
+
+        return parent::getCreated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreated(?\DateTimeInterface $created): \App\Entity\UserRoles
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
+
+        return parent::setCreated($created);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getModified(): ?\DateTimeInterface
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModified', []);
+
+        return parent::getModified();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setModified(?\DateTimeInterface $modified): \App\Entity\UserRoles
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModified', [$modified]);
+
+        return parent::setModified($modified);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIsDelete(): ?bool
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIsDelete', []);
+
+        return parent::getIsDelete();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIsDelete(bool $is_delete): \App\Entity\UserRoles
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIsDelete', [$is_delete]);
+
+        return parent::setIsDelete($is_delete);
     }
 
 }

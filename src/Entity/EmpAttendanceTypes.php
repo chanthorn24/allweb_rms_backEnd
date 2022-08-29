@@ -25,14 +25,24 @@ class EmpAttendanceTypes
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity=EmpAttendances::class, mappedBy="emp_attendance_type")
+     */
+    private $empAttendances;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $is_delete;
 
     /**
-     * @ORM\OneToMany(targetEntity=EmpAttendances::class, mappedBy="emp_attendance_type")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $empAttendances;
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function __construct()
     {
@@ -94,6 +104,30 @@ class EmpAttendanceTypes
                 $empAttendance->setEmpAttendanceType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

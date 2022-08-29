@@ -33,11 +33,6 @@ class EmpLeaves
     private $description;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_delete;
-
-    /**
      * @ORM\ManyToOne(targetEntity=EmpLeaveReasons::class, inversedBy="empLeaves")
      */
     private $emp_leave_reason;
@@ -46,6 +41,21 @@ class EmpLeaves
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="empLeaves")
      */
     private $employee;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_delete;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function getId(): ?int
     {
@@ -120,6 +130,30 @@ class EmpLeaves
     public function setEmployee(?Users $employee): self
     {
         $this->employee = $employee;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getModified(): ?\DateTimeInterface
+    {
+        return $this->modified;
+    }
+
+    public function setModified(?\DateTimeInterface $modified): self
+    {
+        $this->modified = $modified;
 
         return $this;
     }

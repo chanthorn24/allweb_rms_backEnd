@@ -97,21 +97,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $join_date;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $is_delete;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $created;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $modified;
-
-    /**
      * @ORM\ManyToOne(targetEntity=EmpDepartments::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -152,6 +137,21 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=EmpAttendances::class, mappedBy="employee")
      */
     private $empAttendances;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $is_delete;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified;
 
     public function __construct()
     {

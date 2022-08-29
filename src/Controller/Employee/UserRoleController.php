@@ -29,11 +29,14 @@ class UserRoleController extends AbstractController
                 throw new RuntimeException("No data has found");
             }
 
+            $res = [];
             foreach ($roles as $role) {
-                $res[] = [
-                    "id" => $role->getId(),
-                    "role" => $role->getName(),
-                ];
+                if(!$role->getIsDelete()) {
+                    $res[] = [
+                        "id" => $role->getId(),
+                        "role" => $role->getName(),
+                    ];
+                }
             }
 
             return $this->json(array("success" => true, "data" => $res), 200);
@@ -54,6 +57,7 @@ class UserRoleController extends AbstractController
             $role = new UserRoles();
 
             $role->setName($param['name']);
+            $role->setIsDelete(false);
 
             //save to database
             $this->em->persist($role);

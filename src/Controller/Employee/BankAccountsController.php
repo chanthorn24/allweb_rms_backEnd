@@ -4,6 +4,7 @@ namespace App\Controller\Employee;
 
 use App\Entity\BankAccounts;
 use App\Entity\Banks;
+use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,9 +70,13 @@ class BankAccountsController extends AbstractController
             $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
             $bankAccount->setBank($bank);
 
+            //find owner user
+            $user = $this->em->getRepository(Users::class)->find($param['user_id']);
+            $user->setBankAccount($bankAccount);
+
             //save
             $this->em->persist($bankAccount);
-            $this->em->flush($bankAccount);
+            $this->em->flush();
 
             return $this->json(array("success"=> true, "message"=> "Created successfully"), 200);
         }catch (\Exception $err){

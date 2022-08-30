@@ -112,6 +112,7 @@ class UserController extends AbstractController
                         $res5 = [
                             "school" => $user->getUserEducationDegree()->getSchool(),
                             "degree" => $user->getUserEducationDegree()->getSchoolDegree()->getName(),
+
                         ];
                     }
                     $res6 = [
@@ -216,6 +217,7 @@ class UserController extends AbstractController
                     $res5 = [
                         "school" => $user->getUserEducationDegree()->getSchool(),
                         "degree" => $user->getUserEducationDegree()->getSchoolDegree()->getName(),
+                        "degree_id" => $user->getUserEducationDegree()->getSchoolDegree()->getId(),
                     ];
                 }
                 $res6 = [

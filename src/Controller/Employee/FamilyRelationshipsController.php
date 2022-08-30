@@ -19,6 +19,7 @@ class FamilyRelationshipsController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager){
         $this->em = $entityManager;
     }
+
     /**
      * @Route("/", name="get_family_relationships",methods="GET")
      */
@@ -29,17 +30,48 @@ class FamilyRelationshipsController extends AbstractController
             if(!$famRel){
                 throw new RuntimeException('No data is found');
             }
+
+            $res = [];
             foreach ($famRel as $fam){
-                $res[] = [
-                    "id" => $fam->getId(),
-                    "name" => $fam->getName()
-                ];
+                if(!$fam->getIsDelete()) {
+                    $res[] = [
+                        "id" => $fam->getId(),
+                        "name" => $fam->getName()
+                    ];
+                }
             }
-            return $this->json(array("success"=> true, "message"=> $res), 200);
+            return $this->json(array("success"=> true, "data"=> $res), 200);
         }catch (\Exception $err){
             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
         }
     }
+
+    /**
+     * @Route("/{id}", name="getID_family_relationships",methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getByID($id): JsonResponse
+    {
+        try{
+            $famRel = $this->em->getRepository(FamilyRelationships::class)->find($id);
+            if(!$famRel){
+                throw new RuntimeException('No data is found');
+            }
+
+            $res = [];
+            if(!$famRel->getIsDelete()) {
+                $res[] = [
+                    "id" => $famRel->getId(),
+                    "name" => $famRel->getName()
+                ];
+            }
+            return $this->json(array("success"=> true, "data"=> $res), 200);
+        } catch (\Exception $err){
+            return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
+        }
+    }
+
     /**
      * @Route("/create", name="create_family_relationships",methods="POST")
      */
@@ -53,9 +85,9 @@ class FamilyRelationshipsController extends AbstractController
             //save to db
             $this->em->persist($famRelationship);
             $this->em->flush($famRelationship);
-         return $this->json(array("success"=> true, "message"=> "Created successfully"), 200);
+            return $this->json(array("success"=> true, "message"=> "Created successfully"), 200);
         }catch (\Exception $err){
-             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
+            return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
         }
     }
     /**
@@ -73,11 +105,11 @@ class FamilyRelationshipsController extends AbstractController
                 $famRel->setName($param['name']);
             }
             $this->em->flush($famRel);
-        return $this->json(array("success"=> true, "message"=> "Updated successfully"), 200);
+            return $this->json(array("success"=> true, "message"=> "Updated successfully"), 200);
         }
         catch (\Exception $err){
             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
-         }
+        }
     }
     /**
      * @Route("/delete/{id}", name="delete_family_relationships",methods="DELETE")
@@ -91,7 +123,9 @@ class FamilyRelationshipsController extends AbstractController
             }
 
             $famRel->setIsDelete(true);
-            $this->em->flush($famRel);
+
+            //save database
+            $this->em->flush();
             return $this->json(array("success"=> true, "message"=> "Delete successfully"), 200);
         }catch (\Exception $err){
             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);

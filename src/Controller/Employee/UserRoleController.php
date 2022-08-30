@@ -34,9 +34,36 @@ class UserRoleController extends AbstractController
                 if(!$role->getIsDelete()) {
                     $res[] = [
                         "id" => $role->getId(),
-                        "role" => $role->getName(),
+                        "name" => $role->getName(),
                     ];
                 }
+            }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/role/{id}", name="id_role", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getByID($id): JsonResponse
+    {
+        try {
+            $role = $this->em->getRepository(UserRoles::class)->find($id);
+            if(!$role) {
+                throw new RuntimeException("No data has found");
+            }
+
+            $res = [];
+            if(!$role->getIsDelete()) {
+                $res[] = [
+                    "id" => $role->getId(),
+                    "name" => $role->getName(),
+                ];
             }
 
             return $this->json(array("success" => true, "data" => $res), 200);
@@ -70,7 +97,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/api/role/update", name="update_role", methods="PUT")
+     * @Route("/role/update", name="update_role_by_id", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse
@@ -85,7 +112,7 @@ class UserRoleController extends AbstractController
             }
 
             if(isset($param["name"])) {
-                $role->setName();
+                $role->setName($param["name"]);
             }
 
             $res = [
@@ -100,7 +127,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/api/role/delete", name="delete_role", methods="DELETE")
+     * @Route("/role/delete", name="delete_role", methods="DELETE")
      * @param $id
      * @return JsonResponse
      */
@@ -111,7 +138,7 @@ class UserRoleController extends AbstractController
             if(!$role) {
                 throw new RuntimeException("No data has found");
             }
-            
+
             $role->setIsDelete(true);
             $this->em->flush();
             return $this->json(array("success" => true, "message" => "Deleted successfully"), 200);

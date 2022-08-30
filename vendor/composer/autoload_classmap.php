@@ -21,6 +21,7 @@ return array(
     'App\\Controller\\Employee\\UserEducationDegreesController' => $baseDir . '/src/Controller/Employee/UserEducationDegreesController.php',
     'App\\Controller\\Employee\\UserRoleController' => $baseDir . '/src/Controller/Employee/UserRoleController.php',
     'App\\Controller\\MailerController' => $baseDir . '/src/Controller/MailerController.php',
+    'App\\Controller\\ResetPasswordController' => $baseDir . '/src/Controller/ResetPasswordController.php',
     'App\\Entity\\BankAccounts' => $baseDir . '/src/Entity/BankAccounts.php',
     'App\\Entity\\Banks' => $baseDir . '/src/Entity/Banks.php',
     'App\\Entity\\EmpAttendanceTypes' => $baseDir . '/src/Entity/EmpAttendanceTypes.php',

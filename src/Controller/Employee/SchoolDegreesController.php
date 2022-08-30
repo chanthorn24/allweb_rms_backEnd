@@ -33,14 +33,40 @@ class SchoolDegreesController extends AbstractController
                 throw new RuntimeException("No data has found!");
             }
 
+            $res = [];
             foreach ($emp_degrees as $emp_degree) {
                 if(!$emp_degree->getIsDelete()) {
                     $res[] = [
                         "id" => $emp_degree->getId(),
                         "name" => $emp_degree->getName(),
-                        "is_delete" => $emp_degree->getIsDelete(),
                     ];
                 }
+            }
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/{id}", name="id_school_degree", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getByID($id): JsonResponse
+    {
+        try {
+            $emp_degree = $this->em->getRepository(SchoolDegrees::class)->find($id);
+            if(!$emp_degree) {
+                throw new RuntimeException("No data has found!");
+            }
+
+            $res = [];
+            if(!$emp_degree->getIsDelete()) {
+                $res[] = [
+                    "id" => $emp_degree->getId(),
+                    "name" => $emp_degree->getName(),
+                ];
             }
             return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {

@@ -20,6 +20,7 @@ class BanksController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager){
         $this->em = $entityManager;
     }
+
     /**
      * @Route("/", name="get_banks", methods="GET")
      */
@@ -30,17 +31,48 @@ class BanksController extends AbstractController
             if(!$banks){
                 throw new RuntimeException('No data is found');
             }
+
+            $res = [];
             foreach($banks as $bank){
+                if(!$bank->getIsDelete()) {
+                    $res[] = [
+                        "id" => $bank->getId(),
+                        "name" => $bank->getName()
+                    ];
+                }
+            }
+            return $this->json(array("success"=> true, "data"=> $res), 200);
+        }catch (\Exception $err){
+            return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/{id}", name="get_id_banks", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getById($id): JsonResponse
+    {
+        try {
+            $bank = $this->em->getRepository(Banks::class)->find($id);
+            if(!$bank){
+                throw new RuntimeException('No data is found');
+            }
+
+            $res = [];
+            if(!$bank->getIsDelete()) {
                 $res[] = [
                     "id" => $bank->getId(),
                     "name" => $bank->getName()
                 ];
             }
-            return $this->json(array("success"=> true, "message"=> $res), 200);
+            return $this->json(array("success"=> true, "data"=> $res), 200);
         }catch (\Exception $err){
             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
         }
     }
+
     /**
      * @Route("/create", name="create_banks", methods="POST")
      */
@@ -59,6 +91,7 @@ class BanksController extends AbstractController
             return $this->json(array("success"=> false, "message" => $err->getMessage()), 400);
         }
     }
+
     /**
      * @Route("/update/{id}", name="update_banks", methods="PUT")
      */

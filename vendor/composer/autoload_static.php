@@ -449,6 +449,7 @@ class ComposerStaticInit75b906d1a59e7073a889f479c0dee403
         'App\\Controller\\Employee\\UserEducationDegreesController' => __DIR__ . '/../..' . '/src/Controller/Employee/UserEducationDegreesController.php',
         'App\\Controller\\Employee\\UserRoleController' => __DIR__ . '/../..' . '/src/Controller/Employee/UserRoleController.php',
         'App\\Controller\\MailerController' => __DIR__ . '/../..' . '/src/Controller/MailerController.php',
+        'App\\Controller\\ResetPasswordController' => __DIR__ . '/../..' . '/src/Controller/ResetPasswordController.php',
         'App\\Entity\\BankAccounts' => __DIR__ . '/../..' . '/src/Entity/BankAccounts.php',
         'App\\Entity\\Banks' => __DIR__ . '/../..' . '/src/Entity/Banks.php',
         'App\\Entity\\EmpAttendanceTypes' => __DIR__ . '/../..' . '/src/Entity/EmpAttendanceTypes.php',

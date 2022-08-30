@@ -407,6 +407,10 @@ class UserController extends AbstractController
                 $bankAccount->setIsDelete(false);
 
                 $user->setBankAccount($bankAccount);
+
+                //save data to databse
+                $this->em->persist($bankAccount);
+
             }
 
 
@@ -420,6 +424,9 @@ class UserController extends AbstractController
                 $user_education->setIsDelete(false);
 
                 $user->setUserEducationDegree($user_education);
+
+                //save data to database
+                $this->em->persist($user_education);
             }
 
 
@@ -432,8 +439,6 @@ class UserController extends AbstractController
 
 
             //save to database
-            $this->em->persist($bankAccount);
-            $this->em->persist($user_education);
             $this->em->persist($user);
             $this->em->flush();
 
@@ -649,28 +654,6 @@ class UserController extends AbstractController
             $position = $this->em->getRepository(EmpPositions::class)->find(1);
             $user->setEmpPosition($position);
 
-            //create bank
-            $bankAccount = new BankAccounts();
-            $bank = $this->em->getRepository(Banks::class)->find(1);
-            $bankAccount->setBank($bank);
-            $bankAccount->setName("Admin");
-            $bankAccount->setNumber(111111);
-            $bankAccount->setIsDelete(false);
-
-            $user->setBankAccount($bankAccount);
-
-
-            //user education
-            $user_education = new UserEducationDegrees();
-            $education_degree = $this->em->getRepository(SchoolDegrees::class)->find("1");
-
-            $user_education->setSchool("ITC");
-            $user_education->setSchoolDegree($education_degree);
-            $user_education->setIsDelete(false);
-
-            $user->setUserEducationDegree($user_education);
-
-
             if($password !== $repeat_password) {
                 return $this->json(array("success" => false, "message" => "Password not matched"), 400);
             }
@@ -680,8 +663,6 @@ class UserController extends AbstractController
 
 
             //save to database
-            $this->em->persist($bankAccount);
-            $this->em->persist($user_education);
             $this->em->persist($user);
             $this->em->flush();
 

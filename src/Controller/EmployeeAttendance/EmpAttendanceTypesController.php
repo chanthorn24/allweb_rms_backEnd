@@ -33,13 +33,40 @@ class EmpAttendanceTypesController extends AbstractController
                 throw new RuntimeException("No data has found!");
             }
 
+            $res = [];
             foreach ($emp_attendances as $attendance) {
                 if(!$attendance->getIsDelete()) {
                     $res[] = [
+                        "id" => $attendance->getId(),
                         "name" => $attendance->getName(),
-                        "is_delete" => $attendance->getIsDelete()
                     ];
                 }
+            }
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/{id}", name="id_attendance_type", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getById($id): JsonResponse
+    {
+        try {
+            $emp_attendance = $this->em->getRepository(EmpAttendanceTypes::class)->find($id);
+            if(!$emp_attendance) {
+                throw new RuntimeException("No data has found!");
+            }
+
+            $res = [];
+            if(!$emp_attendance->getIsDelete()) {
+                $res[] = [
+                    "id" => $emp_attendance->getId(),
+                    "name" => $emp_attendance->getName(),
+                ];
             }
             return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {
@@ -71,7 +98,7 @@ class EmpAttendanceTypesController extends AbstractController
     }
 
     /**
-     * @Route ("/update/{id}", name="update_attendance_type", methods="POST")
+     * @Route ("/update/{id}", name="update_attendance_type", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

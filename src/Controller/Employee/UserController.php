@@ -398,25 +398,29 @@ class UserController extends AbstractController
             $user->setEmpPosition($position);
 
             //create bank
-            $bankAccount = new BankAccounts();
-            $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
-            $bankAccount->setBank($bank);
-            $bankAccount->setName($param['bank_name']);
-            $bankAccount->setNumber($param['bank_account_number']);
-            $bankAccount->setIsDelete(false);
+            if(isset($param['bank_id'])) {
+                $bankAccount = new BankAccounts();
+                $bank = $this->em->getRepository(Banks::class)->find($param['bank_id']);
+                $bankAccount->setBank($bank);
+                $bankAccount->setName($param['bank_name']);
+                $bankAccount->setNumber($param['bank_account_number']);
+                $bankAccount->setIsDelete(false);
 
-            $user->setBankAccount($bankAccount);
+                $user->setBankAccount($bankAccount);
+            }
 
 
             //user education
-            $user_education = new UserEducationDegrees();
-            $education_degree = $this->em->getRepository(SchoolDegrees::class)->find($param['school_degree_id']);
+            if(isset($param['school_degree_id'])) {
+                $user_education = new UserEducationDegrees();
+                $education_degree = $this->em->getRepository(SchoolDegrees::class)->find($param['school_degree_id']);
 
-            $user_education->setSchool($param['school']);
-            $user_education->setSchoolDegree($education_degree);
-            $user_education->setIsDelete(false);
+                $user_education->setSchool($param['school']);
+                $user_education->setSchoolDegree($education_degree);
+                $user_education->setIsDelete(false);
 
-            $user->setUserEducationDegree($user_education);
+                $user->setUserEducationDegree($user_education);
+            }
 
 
             if($password !== $repeat_password) {
@@ -434,16 +438,17 @@ class UserController extends AbstractController
             $this->em->flush();
 
             //family user
-            foreach ($param['family'] as $familyData) {
-                $family = new EmpFamilies();
-                $family->setName($familyData['name']);
-                $family->setPhone($familyData['phone']);
-                $family_relationship = $this->em->getRepository(FamilyRelationships::class)->find($familyData['family_relationship_id']);
-                $family->setFamilyRelationship($family_relationship);
-                $family->setEmployee($user);
-                $family->setIsDelete(false);
-                $this->em->persist($family);
-
+            if(isset($param['family'])) {
+                foreach ($param['family'] as $familyData) {
+                    $family = new EmpFamilies();
+                    $family->setName($familyData['name']);
+                    $family->setPhone($familyData['phone']);
+                    $family_relationship = $this->em->getRepository(FamilyRelationships::class)->find($familyData['family_relationship_id']);
+                    $family->setFamilyRelationship($family_relationship);
+                    $family->setEmployee($user);
+                    $family->setIsDelete(false);
+                    $this->em->persist($family);
+                }
             }
             $this->em->flush();
 

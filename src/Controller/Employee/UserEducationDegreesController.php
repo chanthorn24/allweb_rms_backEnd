@@ -4,6 +4,7 @@ namespace App\Controller\Employee;
 
 use App\Entity\SchoolDegrees;
 use App\Entity\UserEducationDegrees;
+use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,13 +65,21 @@ class UserEducationDegreesController extends AbstractController
             $emp_education->setSchool($param['school']);
             $emp_education->setIsDelete(false);
 
+
             //joint table
             $degree = $this->em->getRepository(SchoolDegrees::class)->find($param['school_degree_id']);
             $emp_education->setSchoolDegree($degree);
 
+
+
+            if(isset($param['id'])){
+                $user = $this->em->getRepository(Users::class)->find($param['id']);
+                $user->setUserEducationDegree($emp_education);
+            }
             //save data to database
             $this->em->persist($emp_education);
             $this->em->flush();
+
 
             return $this->json(array("success" => true, "message" => "Created successfully"), 200);
         } catch (\Exception $error) {

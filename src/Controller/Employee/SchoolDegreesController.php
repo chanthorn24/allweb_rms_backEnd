@@ -62,6 +62,7 @@ class SchoolDegreesController extends AbstractController
             $emp_degree->setName($param['name']);
             $emp_degree->setIsDelete(false);
 
+
             //save data to database
             $this->em->persist($emp_degree);
             $this->em->flush();

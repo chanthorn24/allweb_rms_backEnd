@@ -118,10 +118,10 @@ return [
                 .'|/role/(?'
                     .'|([^/]++)(*:1219)'
                     .'|create(*:1234)'
-                    .'|update(*:1249)'
-                    .'|delete(*:1264)'
+                    .'|update/([^/]++)(*:1258)'
+                    .'|delete(*:1273)'
                 .')'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:1302)'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:1311)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -178,9 +178,9 @@ return [
         1193 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\Employee\\UserController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
         1219 => [[['_route' => 'id_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
         1234 => [[['_route' => 'create_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::create'], [], ['POST' => 0], null, false, false, null]],
-        1249 => [[['_route' => 'update_role_by_id', '_controller' => 'App\\Controller\\Employee\\UserRoleController::update'], [], ['PUT' => 0], null, false, false, null]],
-        1264 => [[['_route' => 'delete_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::delete'], [], ['DELETE' => 0], null, false, false, null]],
-        1302 => [
+        1258 => [[['_route' => 'update_role_by_id', '_controller' => 'App\\Controller\\Employee\\UserRoleController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        1273 => [[['_route' => 'delete_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::delete'], [], ['DELETE' => 0], null, false, false, null]],
+        1311 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

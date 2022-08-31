@@ -97,7 +97,7 @@ class UserRoleController extends AbstractController
     }
 
     /**
-     * @Route("/role/update", name="update_role_by_id", methods="PUT")
+     * @Route("/role/update/{id}", name="update_role_by_id", methods="PUT")
      * @param $id
      * @param Request $request
      * @return JsonResponse

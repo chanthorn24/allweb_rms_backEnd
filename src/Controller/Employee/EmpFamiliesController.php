@@ -60,23 +60,22 @@ class EmpFamiliesController extends AbstractController
     {
         $param = json_decode($request->getContent(), true);
         try {
-            $families = new EmpFamilies();
-            $families->setName($param['name']);
-            $families->setPhone($param['phone']);
-            $families->setIsDelete(false);
 
-            //joint table
-            $family_relationship = $this->em->getRepository(FamilyRelationships::class)->find($param['family_relationship_id']);
-            $families->setFamilyRelationship($family_relationship);
-            $employee = $this->em->getRepository(Users::class)->find($param['employee_id']);
-            if($employee) {
-                $families->setEmployee($employee);
-            } else {
-                $families->setEmployee(null);
+            //family user
+            if(isset($param['family'])){
+                foreach ($param['family']  as $familyData) {
+                    $family = new EmpFamilies();
+                    $family->setName($familyData['name']);
+                    $family->setPhone($familyData['phone']);
+                    $family_relationship = $this->em->getRepository(FamilyRelationships::class)->find($familyData['family_relationship_id']);
+                    $family->setFamilyRelationship($family_relationship);
+                    $employee = $this->em->getRepository(Users::class)->find($familyData['employee_id']);
+                    $family->setEmployee($employee);
+                    $family->setIsDelete(false);
+                    $this->em->persist($family);
+                }
             }
-
-            $this->em->persist($families);
-            $this->em->flush($families);
+            $this->em->flush();
 
             return $this->json(array("success" => true, "message" => "Created successfully"), 200);
         } catch (\Exception $err) {
@@ -96,6 +95,7 @@ class EmpFamiliesController extends AbstractController
             if (!$family) {
                 throw new RuntimeException("No data is found");
             }
+
             if (isset($param['name']) && isset($param['phone'])) {
                 $family->setName($param['name']);
                 $family->setPhone($param['phone']);

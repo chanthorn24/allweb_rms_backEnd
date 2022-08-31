@@ -155,6 +155,7 @@ class UserController extends AbstractController
                     "id" => $family->getId(),
                     "name" => $family->getName(),
                     "phone" => $family->getPhone(),
+                    "relationship_id" => $family->getFamilyRelationship()->getId(),
                     "relationship" => $family->getFamilyRelationship()->getName(),
                 ];
             }

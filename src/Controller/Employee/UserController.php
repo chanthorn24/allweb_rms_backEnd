@@ -185,6 +185,7 @@ class UserController extends AbstractController
                 if($user->getEmpDepartment()) {
                     $res2 = [
                         "department" => $user->getEmpDepartment()->getName(),
+                        "department_id" => $user->getEmpDepartment()->getId(),
                     ];
                 }
                 $res3 = [
@@ -226,6 +227,7 @@ class UserController extends AbstractController
                 if($user->getEmpPosition()) {
                     $res6 = [
                         "position" => $user->getEmpPosition()->getName(),
+                        "position_id" => $user->getEmpPosition()->getId(),
                     ];
                 }
 
@@ -552,8 +554,8 @@ class UserController extends AbstractController
             if(isset($param['joinDate'])) {
                 $user->setJoinDate(new \DateTime($param['joinDate']));
             }
-            if(isset($param['em_department_id'])) {
-                $department = $this->em->getRepository(EmpDepartments::class)->find($param['em_department_id']);
+            if(isset($param['emp_department_id'])) {
+                $department = $this->em->getRepository(EmpDepartments::class)->find($param['emp_department_id']);
                 $user->setEmpDepartment($department);
             }
             if(isset($param['user_role_id'])) {

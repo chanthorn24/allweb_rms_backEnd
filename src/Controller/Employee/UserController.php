@@ -564,7 +564,7 @@ class UserController extends AbstractController
             }
             if(isset($param['emp_position_id'])) {
                 $position = $this->em->getRepository(EmpPositions::class)->find($param['emp_position_id']);
-                $user->setUserRole($position);
+                $user->setEmpPosition($position);
             }
 
             $res[] = [

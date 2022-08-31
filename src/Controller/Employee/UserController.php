@@ -152,6 +152,7 @@ class UserController extends AbstractController
             $emp_family = [];
             foreach ($user->getEmpFamilies() as $family) {
                 $emp_family[] = [
+                    "id" => $family->getId(),
                     "name" => $family->getName(),
                     "phone" => $family->getPhone(),
                     "relationship" => $family->getFamilyRelationship()->getName(),

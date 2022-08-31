@@ -423,7 +423,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->user_role;
     }
-
     public function setUserRole(?UserRoles $user_role): self
     {
         $this->user_role = $user_role;

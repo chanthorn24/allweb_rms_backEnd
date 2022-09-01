@@ -33,6 +33,11 @@ class EmpLeaves
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $status;
+
+    /**
      * @ORM\ManyToOne(targetEntity=EmpLeaveReasons::class, inversedBy="empLeaves")
      */
     private $emp_leave_reason;
@@ -56,6 +61,7 @@ class EmpLeaves
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $modified;
+
 
     public function getId(): ?int
     {
@@ -154,6 +160,18 @@ class EmpLeaves
     public function setModified(?\DateTimeInterface $modified): self
     {
         $this->modified = $modified;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

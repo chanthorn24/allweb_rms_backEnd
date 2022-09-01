@@ -43,7 +43,7 @@ class EmpLeavesController extends AbstractController
                         "description" => $leave->getDescription(),
                         "start" => $leave->getStart(),
                         "end" => $leave->getEnd(),
-                        "is_delete" => $leave->getIsDelete(),
+                        "status" => $leave->getStatus(),
                     ];
                     $res2 = [
                         "leave_reason" => null,
@@ -95,7 +95,7 @@ class EmpLeavesController extends AbstractController
                     "description" => $leave->getDescription(),
                     "start" => $leave->getStart(),
                     "end" => $leave->getEnd(),
-                    "is_delete" => $leave->getIsDelete(),
+                    "status" => $leave->getStatus(),
                 ];
                 $res2 = [
                     "leave_reason" => null,
@@ -135,6 +135,9 @@ class EmpLeavesController extends AbstractController
     {
         try {
             $leaves = $this->em->getRepository(EmpLeaves::class)->findBy(array("employee" => $user_id));
+            if(!$leaves) {
+                throw new RuntimeException("No data found");
+            }
 
             $res = [];
             foreach ($leaves as $leave) {
@@ -144,7 +147,7 @@ class EmpLeavesController extends AbstractController
                         "description" => $leave->getDescription(),
                         "start" => $leave->getStart(),
                         "end" => $leave->getEnd(),
-                        "is_delete" => $leave->getIsDelete(),
+                        "status" => $leave->getStatus(),
                     ];
                     $res2 = [
                         "leave_reason" => null,
@@ -180,6 +183,64 @@ class EmpLeavesController extends AbstractController
     }
 
     /**
+     * @Route("/user/request/pending", name="request_employee_leave", methods="GET")
+     * @return JsonResponse
+     */
+    public function getByRequest(): JsonResponse
+    {
+        try {
+            $leave_pendings = $this->em->getRepository(EmpLeaves::class)->findBy(array("status" => "Pending"), array('start' => 'ASC'));
+            if(!$leave_pendings) {
+                return $this->json(array("success" => true, "data" => []), 200);
+            }
+
+            $res = [];
+            foreach ($leave_pendings as $leave) {
+                if(!$leave->getIsDelete()) {
+                    $res1 = [
+                        "id" => $leave->getId(),
+                        "description" => $leave->getDescription(),
+                        "start" => $leave->getStart(),
+                        "end" => $leave->getEnd(),
+                        "status" => $leave->getStatus(),
+                    ];
+                    $res2 = [
+                        "leave_reason" => null,
+                    ];
+                    if($leave->getEmpLeaveReason()) {
+                        $res2 = [
+                            "leave_reason" => $leave->getEmpLeaveReason()->getName(),
+                            "emp_leave_reason_id" => $leave->getEmpLeaveReason()->getId(),
+                        ];
+                    }
+                    $res3 = [
+                        "employee" => null
+                    ];
+                    if($leave->getEmployee()) {
+                        $res3 = [
+                            "firstName" => $leave->getEmployee()->getFirstName(),
+                            "lastName" => $leave->getEmployee()->getLastName(),
+                            "user_id" => $leave->getEmployee()->getId(),
+                            "email" => $leave->getEmployee()->getEmail(),
+                            "imageURL" => $leave->getEmployee()->getImageUrl(),
+                        ];
+                    }
+
+                    $res[] = $res1 + $res2 + $res3;
+                }
+            }
+            if($res === []) {
+                throw new RuntimeException("No data has found");
+            }
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+
+
+    /**
      * @Route ("/create", name="create_employee_leave", methods="POST")
      * @param Request $request
      * @return JsonResponse
@@ -193,6 +254,7 @@ class EmpLeavesController extends AbstractController
             $empLeave->setDescription($param['description']);
             $empLeave->setStart(new \DateTime($param['start']));
             $empLeave->setEnd(new \DateTime($param['end']));
+            $empLeave->setStatus($param['status']);
             $empLeave->setIsDelete(false);
 
             //join table
@@ -235,9 +297,12 @@ class EmpLeavesController extends AbstractController
             if(isset($param['end'])) {
                 $empLeave->setEnd(new \DateTime($param['end']));
             }
+            if(isset($param['status'])) {
+                $empLeave->setStatus($param['status']);
+            }
 
             //join table update
-            if(isset($param['emp_leave_reason'])) {
+            if(isset($param['emp_leave_reason_id'])) {
                 $leave_reason = $this->em->getRepository(EmpLeaveReasons::class)->find($param['emp_leave_reason_id']);
                 $empLeave->setEmpLeaveReason($leave_reason);
             }

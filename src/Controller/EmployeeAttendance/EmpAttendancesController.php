@@ -89,7 +89,7 @@ class EmpAttendancesController extends AbstractController
 
             $format_time = $date_time->format('H:i:s');
             $attendance_type = "";
-            if($format_time > "17:30:00") {
+            if($format_time > "18:00:00") {
                 $attendance_type = '4';
             }else if ($format_time > "13:30:00") {
                 $attendance_type = '3';

@@ -264,6 +264,7 @@ class UserController extends AbstractController
                     "firstName" => $user->getFirstName(),
                     "lastName" => $user->getLastName(),
                     "email" => $user->getEmail(),
+                    "department" => $user->getEmpDepartment()->getName(),
                 ];
 
                 $res3 = [

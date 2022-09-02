@@ -236,6 +236,60 @@ class EmpLeavesController extends AbstractController
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }
+    }/**
+     * @Route("/user/request/approved", name="request_employee_leave", methods="GET")
+     * @return JsonResponse
+     */
+    public function approved(): JsonResponse
+    {
+        try {
+            $leave_pendings = $this->em->getRepository(EmpLeaves::class)->findBy(array("status" => "Approved"), array('start' => 'ASC'));
+            if(!$leave_pendings) {
+                return $this->json(array("success" => true, "data" => []), 200);
+            }
+
+            $res = [];
+            foreach ($leave_pendings as $leave) {
+                if(!$leave->getIsDelete()) {
+                    $res1 = [
+                        "id" => $leave->getId(),
+                        "description" => $leave->getDescription(),
+                        "start" => $leave->getStart(),
+                        "end" => $leave->getEnd(),
+                        "status" => $leave->getStatus(),
+                    ];
+                    $res2 = [
+                        "leave_reason" => null,
+                    ];
+                    if($leave->getEmpLeaveReason()) {
+                        $res2 = [
+                            "leave_reason" => $leave->getEmpLeaveReason()->getName(),
+                            "emp_leave_reason_id" => $leave->getEmpLeaveReason()->getId(),
+                        ];
+                    }
+                    $res3 = [
+                        "employee" => null
+                    ];
+                    if($leave->getEmployee()) {
+                        $res3 = [
+                            "firstName" => $leave->getEmployee()->getFirstName(),
+                            "lastName" => $leave->getEmployee()->getLastName(),
+                            "user_id" => $leave->getEmployee()->getId(),
+                            "email" => $leave->getEmployee()->getEmail(),
+                            "imageURL" => $leave->getEmployee()->getImageUrl(),
+                        ];
+                    }
+
+                    $res[] = $res1 + $res2 + $res3;
+                }
+            }
+            if($res === []) {
+                throw new RuntimeException("No data has found");
+            }
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
     }
 
 

@@ -41,7 +41,7 @@ class EmpAttendancesController extends AbstractController
             foreach ($emp_attendances as $emp_attendance) {
                 if (!$emp_attendance->getIsDelete()) {
                     $res1 = [
-                        "name" => $emp_attendance->getIsDelete(),
+                        "created" => $emp_attendance->getCreated(),
                     ];
 
                     $res2 = [
@@ -58,6 +58,57 @@ class EmpAttendancesController extends AbstractController
                     if($emp_attendance->getEmployee()) {
                         $res3 = [
                             "employee" => $emp_attendance->getEmployee()->getId(),
+                        ];
+                    }
+
+                    $res[] = $res1 + $res2 + $res3;
+                }
+            }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/user/{id}", name="each_employee_attendance", methods="GET")
+     * @param $id
+     * @return JsonResponse
+     */
+    public function getByUser($id): JsonResponse
+    {
+        try {
+            $date_time = new \DateTime();
+            $date = $date_time->format('Y-m');
+            $data = (string)'%'.$date.'%';
+            $emp_attendances = $this->em->getRepository(EmpAttendances::class)->getMonthlyEmpAttendance($data, $id);
+
+            if(!$emp_attendances) {
+                throw new RuntimeException("No data has found!");
+            }
+
+            $res = [];
+            foreach ($emp_attendances as $emp_attendance) {
+                if (!$emp_attendance->getIsDelete()) {
+                    $res1 = [
+                        "created" => $emp_attendance->getCreated(),
+                    ];
+
+                    $res2 = [
+                        "attendance_type" => null,
+                    ];
+                    if($emp_attendance->getEmpAttendanceType()) {
+                        $res2 = [
+                            "attendance_type" => $emp_attendance->getEmpAttendanceType()->getName(),
+                        ];
+                    }
+                    $res3 = [
+                        "employee" => null,
+                    ];
+                    if($emp_attendance->getEmployee()) {
+                        $res3 = [
+                            "employee_id" => $emp_attendance->getEmployee()->getId(),
                         ];
                     }
 

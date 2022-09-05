@@ -57,7 +57,10 @@ class EmpAttendancesController extends AbstractController
                     ];
                     if($emp_attendance->getEmployee()) {
                         $res3 = [
-                            "employee" => $emp_attendance->getEmployee()->getId(),
+                            "employee_id" => $emp_attendance->getEmployee()->getId(),
+                            "employee_firstName" => $emp_attendance->getEmployee()->getFirstName(),
+                            "employee_lastName" => $emp_attendance->getEmployee()->getLastName(),
+                            "employee_email" => $emp_attendance->getEmployee()->getEmail()
                         ];
                     }
 

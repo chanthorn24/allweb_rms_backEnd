@@ -101,7 +101,7 @@ class EmpAttendancesRepository extends ServiceEntityRepository
             ->andWhere('e.employee = :user_id')
             ->setParameter('date', $date)
             ->setParameter('user_id', $user_id)
-            ->orderBy('e.emp_attendance_type', 'ASC')
+            ->orderBy('e.created', 'ASC')
         ;
 
         //ASC

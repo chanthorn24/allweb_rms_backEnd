@@ -126,6 +126,44 @@ class EmpAttendancesController extends AbstractController
     }
 
     /**
+     * @Route("/daily/users", name="daily_employees_attendance", methods="GET")
+     * @return JsonResponse
+     */
+    public function getAllDailyEmployeeAttendance(): JsonResponse
+    {
+        try{
+            $date_time = new \DateTime();
+            $date = $date_time->format('Y-m-d');
+            $date = '%'. $date . '%';
+            $getAllEmpAttDaily = $this->em->getRepository(EmpAttendances::class)->getAllEmpAttendanceDaily($date);
+
+//            $emp = $this->em->getRepository(Users::class)->find()
+
+            $attendance = [];
+            foreach ($getAllEmpAttDaily as $attAll) {
+                if(!$attAll->getIsDelete()) {
+                    $attendance[] = [
+                        "attendance_type" => $attAll->getEmpAttendanceType()->getId(),
+                        "created" => $attAll->getCreated(),
+                        "employeeId" => $attAll->getEmployee()->getId(),
+                        "firstName" => $attAll->getEmployee()->getFirstName(),
+                        "lastName" => $attAll->getEmployee()->getLastName(),
+                        "email" => $attAll->getEmployee()->getEmail(),
+                    ];
+                }
+            }
+
+//            $option = [
+//                "data" => $attendance,
+//            ];
+
+            return $this->json(array("success" => true, "data" => $attendance), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
      * @Route ("/get-type/{id}", name="get_type_attendance", methods="GET")
      * @param $id
      * @return JsonResponse

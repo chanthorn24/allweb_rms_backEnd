@@ -88,6 +88,28 @@ class EmpAttendancesRepository extends ServiceEntityRepository
 
     /**
      * @param $date
+     * @return array
+     */
+    public function getAllEmpAttendanceDaily($date): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('ae')
+            ->from(EmpAttendances::class, 'ae')
+            ->where('ae.created LIKE :date')
+//            ->setMaxResults(4)
+            ->setParameter('date', $date)
+            ->orderBy('ae.employee', 'ASC')
+        ;
+
+        //ASC
+        //DESC
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    /**
+     * @param $date
      * @param $user_id
      * @return EmpAttendances[] Returns an array of EmpAttendances objects
      */

@@ -14,16 +14,8 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
     \class_alias(\Container3N1tx05\App_KernelDevDebugContainer::class, App_KernelDevDebugContainer::class, false);
 }
 
-<<<<<<< HEAD
 return new \Container3N1tx05\App_KernelDevDebugContainer([
     'container.build_hash' => '3N1tx05',
-    'container.build_id' => '6601e7e0',
-    'container.build_time' => 1662371986,
+    'container.build_id' => '86c614dc',
+    'container.build_time' => 1662429030,
 ], __DIR__.\DIRECTORY_SEPARATOR.'Container3N1tx05');
-=======
-return new \ContainerWf0qKEX\App_KernelDevDebugContainer([
-    'container.build_hash' => 'Wf0qKEX',
-    'container.build_id' => 'c145e6df',
-    'container.build_time' => 1662372604,
-], __DIR__.\DIRECTORY_SEPARATOR.'ContainerWf0qKEX');
->>>>>>> 38ae901daf1742304252f787024cea1b77de3ebe

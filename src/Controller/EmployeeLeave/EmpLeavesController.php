@@ -230,7 +230,7 @@ class EmpLeavesController extends AbstractController
                 }
             }
             if($res === []) {
-                throw new RuntimeException("No data has found");
+                return $this->json(array("success" => true, "data" => []), 200);
             }
             return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {

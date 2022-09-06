@@ -183,7 +183,7 @@ class EmpLeavesController extends AbstractController
     }
 
     /**
-     * @Route("/user/request/pending", name="request_employee_leave", methods="GET")
+     * @Route("/user/request/pending", name="pending_request_employee_leave", methods="GET")
      * @return JsonResponse
      */
     public function getByRequest(): JsonResponse

@@ -11,7 +11,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 '/user/request/pending',
             ],
             'name' => [
-                'request_employee_leave',
+                'pending_request_employee_leave',
             ],
             'methods' => [
                 [

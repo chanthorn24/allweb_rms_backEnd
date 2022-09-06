@@ -1,4 +1,4 @@
-<?php //App%255CController%255CEmployeeLeave%255CEmpLeavesController%2523getByRequest
+<?php //App%255CController%255CEmployeeAttendance%255CEmpAttendancesController%2523getAllDailyEmployeeAttendance
 
 return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
     $o = [
@@ -8,10 +8,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
     [
         'Symfony\\Component\\Routing\\Annotation\\Route' => [
             'path' => [
-                '/user/request/pending',
+                '/daily/users',
             ],
             'name' => [
-                'pending_request_employee_leave',
+                'daily_employees_attendance',
             ],
             'methods' => [
                 [

@@ -132,6 +132,27 @@ class EmpAttendancesRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @param $date
+     * @return EmpAttendances[] Returns an array of EmpAttendances objects
+     */
+    public function getMonthlyAllAttendance($date): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->select('e')
+            ->from(EmpAttendances::class, 'e')
+            ->where('e.created LIKE :date')
+            ->setParameter('date', $date)
+            ->orderBy('e.created', 'ASC')
+        ;
+
+        //ASC
+        //DESC
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    public function findOneBySomeField($value): ?EmpAttendances
 //    {
 //        return $this->createQueryBuilder('e')

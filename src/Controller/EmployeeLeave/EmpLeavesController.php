@@ -96,6 +96,7 @@ class EmpLeavesController extends AbstractController
                     "start" => $leave->getStart(),
                     "end" => $leave->getEnd(),
                     "status" => $leave->getStatus(),
+                    "created" => $leave->getCreated(),
                 ];
                 $res2 = [
                     "leave_reason" => null,
@@ -113,8 +114,11 @@ class EmpLeavesController extends AbstractController
                     $res3 = [
                         "firstName" => $leave->getEmployee()->getFirstName(),
                         "lastName" => $leave->getEmployee()->getLastName(),
-                        "user_id" => $leave->getEmployee()->getId(),
                         "email" => $leave->getEmployee()->getEmail(),
+                        "imageURL" => $leave->getEmployee()->getImageUrl(),
+                        "employeeID" => $leave->getEmployee()->getId(),
+                        "department" => $leave->getEmployee()->getEmpDepartment()->getName(),
+                        "position" => $leave->getEmployee()->getEmpPosition()->getName(),
                     ];
                 }
 
@@ -167,6 +171,9 @@ class EmpLeavesController extends AbstractController
                             "lastName" => $leave->getEmployee()->getLastName(),
                             "user_id" => $leave->getEmployee()->getId(),
                             "email" => $leave->getEmployee()->getEmail(),
+                            "imageURL" => $leave->getEmployee()->getImageUrl(),
+                            "department" => $leave->getEmployee()->getEmpDepartment()->getName(),
+                            "position" => $leave->getEmployee()->getEmpPosition()->getName(),
                         ];
                     }
 

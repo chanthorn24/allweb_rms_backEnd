@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use function Symfony\Component\String\u;
 
 
 class UserController extends AbstractController
@@ -130,6 +129,35 @@ class UserController extends AbstractController
             }
 
             return $this->json(array("success" => true, "data" => $result), 200);
+        } catch (\Exception $error) {
+            return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
+        }
+    }
+
+    /**
+     * @Route("/user/name", name="get_user", methods="GET")
+     * @return JsonResponse
+     */
+    public function getNameUser(): JsonResponse
+    {
+        try {
+            $users = $this->em->getRepository(Users::class)->findBy(array(), array('last_name' => 'ASC'));
+            if(!$users) {
+                return $this->json(array("success" => false, "message" => "no data found"), 400);
+            }
+
+            $res = [];
+            foreach ($users as $user) {
+                if(!$user->getIsDelete()) {
+                    $res[] = [
+                        "id" => $user->getId(),
+                        "firstName" => $user->getFirstName(),
+                        "lastName" => $user->getLastName(),
+                    ];
+                }
+            }
+
+            return $this->json(array("success" => true, "data" => $res), 200);
         } catch (\Exception $error) {
             return $this->json(array("success" => false, "message" => $error->getMessage()), 400);
         }

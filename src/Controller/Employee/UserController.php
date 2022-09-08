@@ -135,7 +135,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/name", name="get_user", methods="GET")
+     * @Route("/user/name", name="get_name_user", methods="GET")
      * @return JsonResponse
      */
     public function getNameUser(): JsonResponse

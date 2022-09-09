@@ -153,6 +153,8 @@ class UserController extends AbstractController
                         "id" => $user->getId(),
                         "firstName" => $user->getFirstName(),
                         "lastName" => $user->getLastName(),
+                        "email" => $user->getEmail(),
+                        "created" => $user->getCreated(),
                     ];
                 }
             }

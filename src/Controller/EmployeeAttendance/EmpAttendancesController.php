@@ -177,15 +177,19 @@ class EmpAttendancesController extends AbstractController
     }
 
     /**
-     * @Route("/daily/users", name="daily_employees_attendance", methods="GET")
+     * @Route("/daily/users/{date}", name="daily_employees_attendance", methods="GET")
      * @return JsonResponse
      */
-    public function getAllDailyEmployeeAttendance(): JsonResponse
+    public function getAllDailyEmployeeAttendance($date): JsonResponse
     {
         try{
-            $date_time = new \DateTime();
+            $date_time = new \DateTime($date);
+//            $date = $date_time->format('Y-m-d');
+//             $c = \DateTime::createFromFormat('Y-m-d', $date->format('Y-m-d'));
             $date = $date_time->format('Y-m-d');
             $date = '%'. $date . '%';
+//            dd($date);
+
             $getAllEmpAttDaily = $this->em->getRepository(EmpAttendances::class)->getAllEmpAttendanceDaily($date);
 
 //            $emp = $this->em->getRepository(Users::class)->find()

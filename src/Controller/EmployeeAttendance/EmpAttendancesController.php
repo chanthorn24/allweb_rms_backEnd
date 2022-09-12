@@ -127,19 +127,47 @@ class EmpAttendancesController extends AbstractController
 
     /**
      * @Route("/monthly/user", name="monthly_employee_attendance", methods="GET")
-     * @param $id
+     * @param Request $request
      * @return JsonResponse
      */
-    public function getMonthlyByUser(): JsonResponse
+    public function getMonthlyByUser(Request  $request): JsonResponse
     {
         try {
-            $date_time = new \DateTime();
-            $date = $date_time->format('Y-m');
-            $data = (string)'%'.$date.'%';
+            $month = $request->query->get('month');
+            $year = $request->query->get('year');
+
+            $origin_month = "";
+            if($month === 'Jan') {
+                $origin_month = "01";
+            }if($month === 'Feb') {
+                $origin_month = "02";
+            }if($month === 'Mar') {
+                $origin_month = "03";
+            }if($month === 'Apr') {
+                $origin_month = "04";
+            }if($month === 'May') {
+                $origin_month = "05";
+            }if($month === 'Jun') {
+                $origin_month = "06";
+            }if($month === 'Jul') {
+                $origin_month = "07";
+            }if($month === 'Aug') {
+                $origin_month = "08";
+            }if($month === 'Sep') {
+                $origin_month = "09";
+            }if($month === 'Oct') {
+                $origin_month = "10";
+            }if($month === 'Nov') {
+                $origin_month = "11";
+            }if($month === 'Dec') {
+                $origin_month = "12";
+            }
+
+            $data = (string)'%'.$year."-".$origin_month.'%';
             $emp_attendances = $this->em->getRepository(EmpAttendances::class)->getMonthlyAllAttendance($data);
 
             if(!$emp_attendances) {
-                throw new RuntimeException("No data has found!");
+                return $this->json(array("success" => true, "data" => [], "message" => "No data has found"), 200);
             }
 
             $res = [];

@@ -11,7 +11,6 @@ return [
         '/employee/attendance/type' => [[['_route' => 'all_attendance_type', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendanceTypesController::index'], null, ['GET' => 0], null, true, false, null]],
         '/employee/attendance' => [[['_route' => 'all_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getAll'], null, ['GET' => 0], null, true, false, null]],
         '/employee/attendance/monthly/user' => [[['_route' => 'monthly_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getMonthlyByUser'], null, ['GET' => 0], null, false, false, null]],
-        '/employee/attendance/daily/users' => [[['_route' => 'daily_employees_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getAllDailyEmployeeAttendance'], null, ['GET' => 0], null, false, false, null]],
         '/employee/attendance/create' => [[['_route' => 'create_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::create'], null, ['POST' => 0], null, false, false, null]],
         '/employee/leave/reason' => [[['_route' => 'all_leave_reasons', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::index'], null, ['GET' => 0], null, true, false, null]],
         '/employee/leave' => [[['_route' => 'all_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::getAll'], null, ['GET' => 0], null, true, false, null]],
@@ -51,85 +50,88 @@ return [
                             .'|ser/([^/]++)(*:132)'
                             .'|pdate/([^/]++)(*:154)'
                         .')'
-                        .'|get\\-type/([^/]++)(*:181)'
-                        .'|delete/([^/]++)(*:204)'
+                        .'|d(?'
+                            .'|aily/users/([^/]++)(*:186)'
+                            .'|elete/([^/]++)(*:208)'
+                        .')'
+                        .'|get\\-type/([^/]++)(*:235)'
                     .')'
                     .'|leave/(?'
                         .'|reason/(?'
-                            .'|([^/]++)(*:240)'
-                            .'|create(*:254)'
-                            .'|update/([^/]++)(*:277)'
-                            .'|delete/([^/]++)(*:300)'
+                            .'|([^/]++)(*:271)'
+                            .'|create(*:285)'
+                            .'|update/([^/]++)(*:308)'
+                            .'|delete/([^/]++)(*:331)'
                         .')'
-                        .'|([^/]++)(*:317)'
+                        .'|([^/]++)(*:348)'
                         .'|u(?'
-                            .'|ser/([^/]++)(*:341)'
-                            .'|pdate/([^/]++)(*:363)'
+                            .'|ser/([^/]++)(*:372)'
+                            .'|pdate/([^/]++)(*:394)'
                         .')'
-                        .'|create(*:378)'
-                        .'|delete/([^/]++)(*:401)'
+                        .'|create(*:409)'
+                        .'|delete/([^/]++)(*:432)'
                     .')'
                     .'|bank/(?'
                         .'|account/(?'
-                            .'|update/([^/]++)(*:444)'
-                            .'|delete/([^/]++)(*:467)'
+                            .'|update/([^/]++)(*:475)'
+                            .'|delete/([^/]++)(*:498)'
                         .')'
-                        .'|([^/]++)(*:484)'
-                        .'|create(*:498)'
-                        .'|update/([^/]++)(*:521)'
-                        .'|delete/([^/]++)(*:544)'
+                        .'|([^/]++)(*:515)'
+                        .'|create(*:529)'
+                        .'|update/([^/]++)(*:552)'
+                        .'|delete/([^/]++)(*:575)'
                     .')'
                     .'|family/(?'
-                        .'|update/([^/]++)(*:578)'
-                        .'|delete/([^/]++)(*:601)'
+                        .'|update/([^/]++)(*:609)'
+                        .'|delete/([^/]++)(*:632)'
                         .'|relationship/(?'
-                            .'|([^/]++)(*:633)'
-                            .'|create(*:647)'
-                            .'|update/([^/]++)(*:670)'
-                            .'|delete/([^/]++)(*:693)'
+                            .'|([^/]++)(*:664)'
+                            .'|create(*:678)'
+                            .'|update/([^/]++)(*:701)'
+                            .'|delete/([^/]++)(*:724)'
                         .')'
                     .')'
                     .'|position/(?'
-                        .'|([^/]++)(*:723)'
-                        .'|create(*:737)'
-                        .'|update/([^/]++)(*:760)'
-                        .'|delete/([^/]++)(*:783)'
+                        .'|([^/]++)(*:754)'
+                        .'|create(*:768)'
+                        .'|update/([^/]++)(*:791)'
+                        .'|delete/([^/]++)(*:814)'
                     .')'
                     .'|degree/(?'
-                        .'|([^/]++)(*:810)'
-                        .'|create(*:824)'
-                        .'|update/([^/]++)(*:847)'
-                        .'|delete/([^/]++)(*:870)'
+                        .'|([^/]++)(*:841)'
+                        .'|create(*:855)'
+                        .'|update/([^/]++)(*:878)'
+                        .'|delete/([^/]++)(*:901)'
                     .')'
                     .'|education/(?'
-                        .'|update/([^/]++)(*:907)'
-                        .'|delete/([^/]++)(*:930)'
+                        .'|update/([^/]++)(*:938)'
+                        .'|delete/([^/]++)(*:961)'
                     .')'
                 .')'
                 .'|/department/(?'
-                    .'|([^/]++)(*:963)'
-                    .'|create(*:977)'
-                    .'|update/([^/]++)(*:1000)'
-                    .'|delete/([^/]++)(*:1024)'
-                    .'|([^/]++)(*:1041)'
+                    .'|([^/]++)(*:994)'
+                    .'|create(*:1008)'
+                    .'|update/([^/]++)(*:1032)'
+                    .'|delete/([^/]++)(*:1056)'
+                    .'|([^/]++)(*:1073)'
                 .')'
                 .'|/user/(?'
-                    .'|([^/]++)(*:1068)'
-                    .'|by\\-email/([^/]++)(*:1095)'
-                    .'|leave(*:1109)'
-                    .'|attendance(*:1128)'
-                    .'|create(*:1143)'
-                    .'|update/([^/]++)(*:1167)'
-                    .'|password(*:1184)'
+                    .'|([^/]++)(*:1100)'
+                    .'|by\\-email/([^/]++)(*:1127)'
+                    .'|leave(*:1141)'
+                    .'|attendance(*:1160)'
+                    .'|create(*:1175)'
+                    .'|update/([^/]++)(*:1199)'
+                    .'|password(*:1216)'
                 .')'
-                .'|/api/user/delete/([^/]++)(*:1219)'
+                .'|/api/user/delete/([^/]++)(*:1251)'
                 .'|/role/(?'
-                    .'|([^/]++)(*:1245)'
-                    .'|create(*:1260)'
-                    .'|update/([^/]++)(*:1284)'
-                    .'|delete(*:1299)'
+                    .'|([^/]++)(*:1277)'
+                    .'|create(*:1292)'
+                    .'|update/([^/]++)(*:1316)'
+                    .'|delete(*:1331)'
                 .')'
-                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:1337)'
+                .'|/_error/(\\d+)(?:\\.([^/]++))?(*:1369)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -139,57 +141,58 @@ return [
         107 => [[['_route' => 'delete_attendance_type', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendanceTypesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
         132 => [[['_route' => 'each_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getByUser'], ['id'], ['GET' => 0], null, false, true, null]],
         154 => [[['_route' => 'update_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::update'], ['id'], ['POST' => 0], null, false, true, null]],
-        181 => [[['_route' => 'get_type_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getType'], ['id'], ['GET' => 0], null, false, true, null]],
-        204 => [[['_route' => 'delete_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        240 => [[['_route' => 'one_leave_reason', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::getOne'], ['id'], ['GET' => 0], null, false, true, null]],
-        254 => [[['_route' => 'create_leave_reasons', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::create'], [], ['POST' => 0], null, false, false, null]],
-        277 => [[['_route' => 'update_leave_reason', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        300 => [[['_route' => 'delete_leave_reason', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        317 => [[['_route' => 'getone_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::getOne'], ['id'], ['GET' => 0], null, false, true, null]],
-        341 => [[['_route' => 'email_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::getByUser'], ['user_id'], ['GET' => 0], null, false, true, null]],
-        363 => [[['_route' => 'update_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        378 => [[['_route' => 'create_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::create'], [], ['POST' => 0], null, false, false, null]],
-        401 => [[['_route' => 'delete_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        444 => [[['_route' => 'update_bank_account_info', '_controller' => 'App\\Controller\\Employee\\BankAccountsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        467 => [[['_route' => 'delete_bank_account_info', '_controller' => 'App\\Controller\\Employee\\BankAccountsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        484 => [[['_route' => 'get_id_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::getById'], ['id'], ['GET' => 0], null, false, true, null]],
-        498 => [[['_route' => 'create_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::create'], [], ['POST' => 0], null, false, false, null]],
-        521 => [[['_route' => 'update_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        544 => [[['_route' => 'delete_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        578 => [[['_route' => 'update_family', '_controller' => 'App\\Controller\\Employee\\EmpFamiliesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        601 => [[['_route' => 'delete_family', '_controller' => 'App\\Controller\\Employee\\EmpFamiliesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        633 => [[['_route' => 'getID_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
-        647 => [[['_route' => 'create_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::create'], [], ['POST' => 0], null, false, false, null]],
-        670 => [[['_route' => 'update_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        693 => [[['_route' => 'delete_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        723 => [[['_route' => 'get_one_position', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::getOnePosition'], ['id'], ['GET' => 0], null, false, true, null]],
-        737 => [[['_route' => 'create_positions', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::Create'], [], ['POST' => 0], null, false, false, null]],
-        760 => [[['_route' => 'update_position', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        783 => [[['_route' => 'delete_position', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        810 => [[['_route' => 'id_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
-        824 => [[['_route' => 'create_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::create'], [], ['POST' => 0], null, false, false, null]],
-        847 => [[['_route' => 'update_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        870 => [[['_route' => 'delete_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        907 => [[['_route' => 'update_employee_education', '_controller' => 'App\\Controller\\Employee\\UserEducationDegreesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        930 => [[['_route' => 'delete_employee_education', '_controller' => 'App\\Controller\\Employee\\UserEducationDegreesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        963 => [[['_route' => 'one_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::getOne'], ['id'], ['GET' => 0], null, false, true, null]],
-        977 => [[['_route' => 'create_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::create'], [], ['POST' => 0], null, false, false, null]],
-        1000 => [[['_route' => 'update_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        1024 => [[['_route' => 'delete_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        1041 => [[['_route' => 'show_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1068 => [[['_route' => 'one_user', '_controller' => 'App\\Controller\\Employee\\UserController::getOneUser'], ['id'], ['GET' => 0], null, false, true, null]],
-        1095 => [[['_route' => 'email_one_user', '_controller' => 'App\\Controller\\Employee\\UserController::getOnlyUser'], ['email'], ['GET' => 0], null, false, true, null]],
-        1109 => [[['_route' => 'get_leave_user', '_controller' => 'App\\Controller\\Employee\\UserController::getLeave'], [], ['GET' => 0], null, false, false, null]],
-        1128 => [[['_route' => 'get_attendance_user', '_controller' => 'App\\Controller\\Employee\\UserController::getAttendance'], [], ['GET' => 0], null, false, false, null]],
-        1143 => [[['_route' => 'create_user', '_controller' => 'App\\Controller\\Employee\\UserController::create'], [], ['POST' => 0], null, false, false, null]],
-        1167 => [[['_route' => 'update_user', '_controller' => 'App\\Controller\\Employee\\UserController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        1184 => [[['_route' => 'change_pw_user', '_controller' => 'App\\Controller\\ResetPasswordController::changePassword'], [], ['PUT' => 0], null, false, false, null]],
-        1219 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\Employee\\UserController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        1245 => [[['_route' => 'id_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
-        1260 => [[['_route' => 'create_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::create'], [], ['POST' => 0], null, false, false, null]],
-        1284 => [[['_route' => 'update_role_by_id', '_controller' => 'App\\Controller\\Employee\\UserRoleController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
-        1299 => [[['_route' => 'delete_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::delete'], [], ['DELETE' => 0], null, false, false, null]],
-        1337 => [
+        186 => [[['_route' => 'daily_employees_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getAllDailyEmployeeAttendance'], ['date'], ['GET' => 0], null, false, true, null]],
+        208 => [[['_route' => 'delete_employee_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        235 => [[['_route' => 'get_type_attendance', '_controller' => 'App\\Controller\\EmployeeAttendance\\EmpAttendancesController::getType'], ['id'], ['GET' => 0], null, false, true, null]],
+        271 => [[['_route' => 'one_leave_reason', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::getOne'], ['id'], ['GET' => 0], null, false, true, null]],
+        285 => [[['_route' => 'create_leave_reasons', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::create'], [], ['POST' => 0], null, false, false, null]],
+        308 => [[['_route' => 'update_leave_reason', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        331 => [[['_route' => 'delete_leave_reason', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeaveReasonsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        348 => [[['_route' => 'getone_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::getOne'], ['id'], ['GET' => 0], null, false, true, null]],
+        372 => [[['_route' => 'email_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::getByUser'], ['user_id'], ['GET' => 0], null, false, true, null]],
+        394 => [[['_route' => 'update_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        409 => [[['_route' => 'create_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::create'], [], ['POST' => 0], null, false, false, null]],
+        432 => [[['_route' => 'delete_employee_leave', '_controller' => 'App\\Controller\\EmployeeLeave\\EmpLeavesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        475 => [[['_route' => 'update_bank_account_info', '_controller' => 'App\\Controller\\Employee\\BankAccountsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        498 => [[['_route' => 'delete_bank_account_info', '_controller' => 'App\\Controller\\Employee\\BankAccountsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        515 => [[['_route' => 'get_id_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::getById'], ['id'], ['GET' => 0], null, false, true, null]],
+        529 => [[['_route' => 'create_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::create'], [], ['POST' => 0], null, false, false, null]],
+        552 => [[['_route' => 'update_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        575 => [[['_route' => 'delete_banks', '_controller' => 'App\\Controller\\Employee\\BanksController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        609 => [[['_route' => 'update_family', '_controller' => 'App\\Controller\\Employee\\EmpFamiliesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        632 => [[['_route' => 'delete_family', '_controller' => 'App\\Controller\\Employee\\EmpFamiliesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        664 => [[['_route' => 'getID_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
+        678 => [[['_route' => 'create_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::create'], [], ['POST' => 0], null, false, false, null]],
+        701 => [[['_route' => 'update_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        724 => [[['_route' => 'delete_family_relationships', '_controller' => 'App\\Controller\\Employee\\FamilyRelationshipsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        754 => [[['_route' => 'get_one_position', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::getOnePosition'], ['id'], ['GET' => 0], null, false, true, null]],
+        768 => [[['_route' => 'create_positions', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::Create'], [], ['POST' => 0], null, false, false, null]],
+        791 => [[['_route' => 'update_position', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        814 => [[['_route' => 'delete_position', '_controller' => 'App\\Controller\\Employee\\EmpPositionsController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        841 => [[['_route' => 'id_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
+        855 => [[['_route' => 'create_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::create'], [], ['POST' => 0], null, false, false, null]],
+        878 => [[['_route' => 'update_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        901 => [[['_route' => 'delete_school_degree', '_controller' => 'App\\Controller\\Employee\\SchoolDegreesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        938 => [[['_route' => 'update_employee_education', '_controller' => 'App\\Controller\\Employee\\UserEducationDegreesController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        961 => [[['_route' => 'delete_employee_education', '_controller' => 'App\\Controller\\Employee\\UserEducationDegreesController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        994 => [[['_route' => 'one_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::getOne'], ['id'], ['GET' => 0], null, false, true, null]],
+        1008 => [[['_route' => 'create_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::create'], [], ['POST' => 0], null, false, false, null]],
+        1032 => [[['_route' => 'update_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        1056 => [[['_route' => 'delete_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        1073 => [[['_route' => 'show_department', '_controller' => 'App\\Controller\\Employee\\EmpDepartmentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1100 => [[['_route' => 'one_user', '_controller' => 'App\\Controller\\Employee\\UserController::getOneUser'], ['id'], ['GET' => 0], null, false, true, null]],
+        1127 => [[['_route' => 'email_one_user', '_controller' => 'App\\Controller\\Employee\\UserController::getOnlyUser'], ['email'], ['GET' => 0], null, false, true, null]],
+        1141 => [[['_route' => 'get_leave_user', '_controller' => 'App\\Controller\\Employee\\UserController::getLeave'], [], ['GET' => 0], null, false, false, null]],
+        1160 => [[['_route' => 'get_attendance_user', '_controller' => 'App\\Controller\\Employee\\UserController::getAttendance'], [], ['GET' => 0], null, false, false, null]],
+        1175 => [[['_route' => 'create_user', '_controller' => 'App\\Controller\\Employee\\UserController::create'], [], ['POST' => 0], null, false, false, null]],
+        1199 => [[['_route' => 'update_user', '_controller' => 'App\\Controller\\Employee\\UserController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        1216 => [[['_route' => 'change_pw_user', '_controller' => 'App\\Controller\\ResetPasswordController::changePassword'], [], ['PUT' => 0], null, false, false, null]],
+        1251 => [[['_route' => 'delete_user', '_controller' => 'App\\Controller\\Employee\\UserController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        1277 => [[['_route' => 'id_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::getByID'], ['id'], ['GET' => 0], null, false, true, null]],
+        1292 => [[['_route' => 'create_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::create'], [], ['POST' => 0], null, false, false, null]],
+        1316 => [[['_route' => 'update_role_by_id', '_controller' => 'App\\Controller\\Employee\\UserRoleController::update'], ['id'], ['PUT' => 0], null, false, true, null]],
+        1331 => [[['_route' => 'delete_role', '_controller' => 'App\\Controller\\Employee\\UserRoleController::delete'], [], ['DELETE' => 0], null, false, false, null]],
+        1369 => [
             [['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
